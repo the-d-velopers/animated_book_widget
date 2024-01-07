@@ -1,0 +1,10 @@
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+### Dart ###
+# See https://www.dartlang.org/guides/libraries/private-files
+# Files and directories created by pub
+.dart_tool/
+.packages

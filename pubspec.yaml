@@ -1,0 +1,14 @@
+name: animated_book_list
+description: A Flutter package from the d-velopers community
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.2.2 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter  
+
+dev_dependencies:
+  very_good_analysis: ^5.1.0
