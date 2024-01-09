@@ -32,9 +32,6 @@ migrate_working_dir/
 .pub/
 /build/
 
-#Main build forlder
-/build
-
 # Web related
 lib/generated_plugin_registrant.dart
 
