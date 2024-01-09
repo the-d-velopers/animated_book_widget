@@ -8,3 +8,4 @@
 # Files and directories created by pub
 .dart_tool/
 .packages
+pubspec.lock
