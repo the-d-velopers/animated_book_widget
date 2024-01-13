@@ -18,6 +18,12 @@ class AnimatedContentWidget extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(child: content);
+    return SizedBox.expand(
+      child: Transform(
+        alignment: Alignment.center,
+        transform: Matrix4.identity()..scale(contentAnimation.value),
+        child: content,
+      ),
+    );
   }
 }

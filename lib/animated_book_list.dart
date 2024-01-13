@@ -1,1 +1,1 @@
-export 'src/src.dart';
+export 'src/src.dart' hide BackgroundBlur;
