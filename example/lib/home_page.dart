@@ -1,5 +1,6 @@
-import 'package:example/examples.dart';
 import 'package:flutter/material.dart';
+
+import 'examples.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -11,6 +12,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool horizontalView = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,21 +36,31 @@ class _MyHomePageState extends State<MyHomePage> {
             Text('Animated Book List'),
           ],
         ),
+        actions: [
+          IconButton(
+            onPressed: () => setState(() => horizontalView = !horizontalView),
+            icon: Icon(horizontalView
+                ? Icons.view_column_rounded
+                : Icons.table_rows_rounded),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView(
           physics: const BouncingScrollPhysics(),
+          scrollDirection: horizontalView ? Axis.vertical : Axis.horizontal,
           children: [
             Text(
               'Inspiration Example:',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.all(10),
               child: SizedBox(
                 height: 225,
-                child: InspirationExample(),
+                width: 160,
+                child: InspirationExample(horizontalView: horizontalView),
               ),
             ),
             Text(
@@ -55,10 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.all(10),
               child: SizedBox(
                 height: 225,
-                child: BooksExample(),
+                width: 160,
+                child: BooksExample(horizontalView: horizontalView),
               ),
             ),
             Text(
@@ -66,53 +80,40 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.all(10),
               child: SizedBox(
                 height: 225,
-                child: PokemonsExample(),
+                width: 160,
+                child: PokemonsExample(horizontalView: horizontalView),
+              ),
+            ),
+            Text(
+              'Separated example:',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                height: 225,
+                width: 160,
+                child: SeparatedExample(horizontalView: horizontalView),
+              ),
+            ),
+            Text(
+              'Build example:',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                height: 225,
+                width: 160,
+                child: BuildExample(horizontalView: horizontalView),
               ),
             ),
           ],
         ),
       ),
-      // body: Column(
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //   children: [
-      //     SizedBox(
-      //       height: 225,
-      //       child: AnimatedBookList.separated(
-      //         itemBuilder: (_, index) {
-      //           final color = Colors.primaries[index % Colors.primaries.length];
-      //           return AnimatedBookWidget(
-      //             cover: cover,
-      //             content: ColoredBox(color: color),
-      //             size: const Size.fromWidth(160),
-      //           );
-      //         },
-      //         itemCount: 10,
-      //         separatorBuilder: (context, index) => const SizedBox(width: 20),
-      //         padding: const EdgeInsets.symmetric(horizontal: 20),
-      //       ),
-      //     ),
-      //     const SizedBox(height: 20),
-      //     SizedBox(
-      //       height: 225,
-      //       child: AnimatedBookList.builder(
-      //         itemBuilder: (_, index) {
-      //           final color = Colors.primaries[index % Colors.primaries.length];
-      //           return AnimatedBookWidget(
-      //             cover: cover,
-      //             content: ColoredBox(color: color),
-      //             size: const Size.fromWidth(160),
-      //             padding: const EdgeInsets.only(right: 10),
-      //           );
-      //         },
-      //         itemCount: 10,
-      //         padding: const EdgeInsets.symmetric(horizontal: 20),
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

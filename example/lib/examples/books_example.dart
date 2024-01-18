@@ -40,62 +40,75 @@ List<Book> books = [
 
 ///Widget class example
 class BooksExample extends StatelessWidget {
+  final bool horizontalView;
+
   BooksExample({
     super.key,
+    required this.horizontalView,
   });
 
   @override
   Widget build(BuildContext context) {
     ///List of all objects
-    return AnimatedBookList.separated(
-        itemBuilder: (_, index) {
-          ///For each object we return a widget with the data.
-          return AnimatedBookWidget(
-            ///Cover parameter
-            cover: Image.network(
+    return AnimatedBookList.builder(
+      ///Scroll axis
+      scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
+
+      ///Number of items on the list
+      itemCount: books.length,
+
+      //Item constructor
+      itemBuilder: (_, index) {
+        ///For each object we return a widget with the data.
+        return AnimatedBookWidget(
+          ///Size perameter
+          size: horizontalView ? Size.fromWidth(160) : Size.fromHeight(225),
+
+          //Padding parameter
+          padding: horizontalView
+              ? const EdgeInsets.symmetric(horizontal: 5)
+              : const EdgeInsets.symmetric(vertical: 5),
+
+          ///Cover parameter
+          cover: ClipRRect(
+            borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
+            child: Image.network(
               books[index].bookCoverImgUrl,
               fit: BoxFit.cover,
             ),
+          ),
 
-            ///Content parameter
-            content: Container(
-              color: Color(0xFFF1F1F1),
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Color(0xFF01DFD7),
-                      child: Image.network(
-                        books[index].bookAuthorImgUrl,
-                      ),
+          ///Content parameter
+          content: Container(
+            color: Color(0xFFF1F1F1),
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Color(0xFF01DFD7),
+                    child: Image.network(
+                      books[index].bookAuthorImgUrl,
                     ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 160,
-                      child: RichText(
-                        overflow: TextOverflow.fade,
-                        text: TextSpan(
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontStyle: FontStyle.italic),
-                            text: books[index].bookDescription),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 160,
+                    child: RichText(
+                      overflow: TextOverflow.fade,
+                      text: TextSpan(
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontStyle: FontStyle.italic),
+                          text: books[index].bookDescription),
+                    ),
+                  )
+                ],
               ),
             ),
-
-            ///Size perameter
-            size: Size.fromWidth(160),
-          );
-        },
-
-        ///Separator of list
-        separatorBuilder: (context, index) => const SizedBox(width: 20),
-
-        ///Number of items on the list
-        itemCount: books.length);
+          ),
+        );
+      },
+    );
   }
 }

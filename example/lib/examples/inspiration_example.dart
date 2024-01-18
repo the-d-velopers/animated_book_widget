@@ -31,87 +31,100 @@ List<InspirationBook> inspirationBooks = [
 
 ///Widget class example
 class InspirationExample extends StatelessWidget {
+  final bool horizontalView;
+
   InspirationExample({
     super.key,
+    required this.horizontalView,
   });
 
   @override
   Widget build(BuildContext context) {
     ///List of all objects
     return AnimatedBookList.separated(
-        itemBuilder: (_, index) {
-          ///For each object we return a widget with the data.
-          return AnimatedBookWidget(
-            ///Cover parameter
-            cover: Image.network(
+      ///Scroll axis
+      scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
+
+      ///Separator of list
+      separatorBuilder: (context, index) => horizontalView
+          ? const SizedBox(width: 20)
+          : const SizedBox(height: 20),
+
+      ///Number of items on the list
+      itemCount: inspirationBooks.length,
+
+      ///Item constructor
+      itemBuilder: (_, index) {
+        ///For each object we return a widget with the data.
+        return AnimatedBookWidget(
+          ///Size perameter
+          size: horizontalView ? Size.fromWidth(160) : Size.fromHeight(225),
+
+          ///Cover parameter
+          cover: ClipRRect(
+            borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
+            child: Image.network(
               inspirationBooks[index].coverImgUrl,
               fit: BoxFit.cover,
             ),
+          ),
 
-            ///Content parameter
-            content: Container(
-              color: Color(0xFFF1F1F1),
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 90,
-                          width: 65,
-                          color: Color(0xFF81F79F),
-                          child: Image.network(
-                            inspirationBooks[index].imageSilhouetteUrl,
-                          ),
+          ///Content parameter
+          content: Container(
+            color: Color(0xFFF1F1F1),
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        height: 90,
+                        width: 65,
+                        color: Color(0xFF81F79F),
+                        child: Image.network(
+                          inspirationBooks[index].imageSilhouetteUrl,
                         ),
-                        Container(
-                          height: 90,
-                          width: 65,
-                          color: Color(0xFF01DFD7),
-                          child: Image.network(
-                            inspirationBooks[index].imageSilhouetteUrl,
-                          ),
+                      ),
+                      Container(
+                        height: 90,
+                        width: 65,
+                        color: Color(0xFF01DFD7),
+                        child: Image.network(
+                          inspirationBooks[index].imageSilhouetteUrl,
                         ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 90,
-                          width: 65,
-                          color: Color(0xFFF5DA81),
-                          child: Image.network(
-                            inspirationBooks[index].imageSilhouetteUrl,
-                          ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        height: 90,
+                        width: 65,
+                        color: Color(0xFFF5DA81),
+                        child: Image.network(
+                          inspirationBooks[index].imageSilhouetteUrl,
                         ),
-                        Container(
-                          height: 90,
-                          width: 65,
-                          color: Color(0xFF819FF7),
-                          child: Image.network(
-                            inspirationBooks[index].imageSilhouetteUrl,
-                          ),
+                      ),
+                      Container(
+                        height: 90,
+                        width: 65,
+                        color: Color(0xFF819FF7),
+                        child: Image.network(
+                          inspirationBooks[index].imageSilhouetteUrl,
                         ),
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
-
-            ///Size perameter
-            size: Size.fromWidth(160),
-          );
-        },
-
-        ///Separator of list
-        separatorBuilder: (context, index) => const SizedBox(width: 20),
-
-        ///Number of items on the list
-        itemCount: inspirationBooks.length);
+          ),
+        );
+      },
+    );
   }
 }

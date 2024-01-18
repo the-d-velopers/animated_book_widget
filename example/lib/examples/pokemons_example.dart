@@ -27,19 +27,39 @@ List<PokemonBook> pokemonBooks = [
 
 ///Widget class example
 class PokemonsExample extends StatelessWidget {
+  final bool horizontalView;
+
   PokemonsExample({
     super.key,
+    required this.horizontalView,
   });
 
   @override
   Widget build(BuildContext context) {
     ///List of all objects
     return AnimatedBookList.separated(
-        itemBuilder: (_, index) {
-          ///For each object we return a widget with the data.
-          return AnimatedBookWidget(
-            ///Cover parameter
-            cover: Container(
+      ///Scroll axis
+      scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
+
+      ///Separator of list
+      separatorBuilder: (context, index) => horizontalView
+          ? const SizedBox(width: 20)
+          : const SizedBox(height: 20),
+
+      ///Number of items on the list
+      itemCount: pokemonBooks.length,
+
+      ///Item constructor
+      itemBuilder: (_, index) {
+        ///For each object we return a widget with the data.
+        return AnimatedBookWidget(
+          //Size perameter
+          size: horizontalView ? Size.fromWidth(160) : Size.fromHeight(225),
+
+          ///Cover parameter
+          cover: ClipRRect(
+            borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
+            child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -66,43 +86,37 @@ class PokemonsExample extends StatelessWidget {
                 ],
               ),
             ),
+          ),
 
-            ///Content parameter
-            content: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Colors.blue.shade300, Colors.blue],
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    pokemonBooks[index].pokemonName,
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Colors.white.withOpacity(0.8),
-                    radius: 70,
-                    child: Image.network(
-                      pokemonBooks[index].urlImage,
-                    ),
-                  ),
-                ],
+          ///Content parameter
+          content: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.blue.shade300, Colors.blue],
               ),
             ),
-            //Size perameter
-            size: Size.fromWidth(160),
-          );
-        },
-
-        ///Separator of list
-        separatorBuilder: (context, index) => const SizedBox(width: 20),
-
-        ///Number of items on the list
-        itemCount: pokemonBooks.length);
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  pokemonBooks[index].pokemonName,
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.white.withOpacity(0.8),
+                  radius: 70,
+                  child: Image.network(
+                    pokemonBooks[index].urlImage,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
