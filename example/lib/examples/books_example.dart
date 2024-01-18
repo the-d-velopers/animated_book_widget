@@ -57,6 +57,9 @@ class BooksExample extends StatelessWidget {
       ///Number of items on the list
       itemCount: books.length,
 
+      ///Item size
+      itemSize: 160.0,
+
       //Item constructor
       itemBuilder: (_, index) {
         ///For each object we return a widget with the data.

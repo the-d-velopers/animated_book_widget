@@ -20,6 +20,9 @@ class BuildExample extends StatelessWidget {
       ///Number of items on the list
       itemCount: 3,
 
+      ///Item size
+      itemSize: 160.0,
+
       ///Item constructor
       itemBuilder: (_, index) {
         final color = Colors.primaries[index % Colors.primaries.length];
