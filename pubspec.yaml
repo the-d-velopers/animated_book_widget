@@ -8,8 +8,12 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter  
+    sdk: flutter
+  
 
 dev_dependencies:
   dart_code_metrics: ^5.7.6
+  flutter_test:
+    sdk: flutter
   very_good_analysis: ^5.1.0
+  
