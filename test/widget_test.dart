@@ -36,7 +36,7 @@ void testTo(
     );
 
 void testAnimatedBookWidget() => testTo(
-      'Finding the Animated Book List Widget',
+      'Finding the Animated Book Widget',
       (tester) {
         final animatedBookWidget = find.byType(AnimatedBookWidget);
 
@@ -45,7 +45,7 @@ void testAnimatedBookWidget() => testTo(
     );
 
 void testCoverWidget() => testTo(
-      'The Cover Widget is a descendant of Animated Book List Widget',
+      'The Cover Widget is a descendant of Animated Book Widget',
       (tester) {
         final animatedBookWidget = find.byType(AnimatedBookWidget);
         final coverWidget = find.byType(AnimatedCoverWidget);
@@ -60,7 +60,7 @@ void testCoverWidget() => testTo(
     );
 
 void testContentWidget() => testTo(
-      'The Content Widget is a descendant of Animated Book List Widget',
+      'The Content Widget is a descendant of Animated Book Widget',
       (tester) {
         final animatedBookWidget = find.byType(AnimatedBookWidget);
         final coverWidget = find.byType(AnimatedContentWidget);
