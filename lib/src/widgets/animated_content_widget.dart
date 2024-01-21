@@ -7,8 +7,7 @@ class AnimatedContentWidget extends StatelessWidget {
   ///
   const AnimatedContentWidget({
     required this.bookAnimation,
-    required this.contentBuilder,
-    required this.contentChild,
+    required this.delegate,
     super.key,
   });
 
@@ -16,21 +15,81 @@ class AnimatedContentWidget extends StatelessWidget {
   final Animation<double> bookAnimation;
 
   ///
-  final AnimatedBookContentBuilder contentBuilder;
-
-  ///
-  final Widget? contentChild;
+  final AnimatedContentDelegate delegate;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: bookAnimation,
-      builder: (context, child) => contentBuilder(
-        context,
-        bookAnimation,
-        child,
-      ),
-      child: contentChild,
+      builder: (context, child) =>
+          delegate.build(context, bookAnimation, child),
+      child: delegate.contentChild,
     );
+  }
+}
+
+///
+abstract class AnimatedContentDelegate {
+  ///
+  const AnimatedContentDelegate();
+
+  ///
+  Widget build(
+    BuildContext context,
+    Animation<double> bookAnimation,
+    Widget? child,
+  );
+
+  ///
+  Widget? get contentChild;
+}
+
+///
+class DefaultAnimatedContentDelegate extends AnimatedContentDelegate {
+  ///
+  const DefaultAnimatedContentDelegate({
+    required this.contentChild,
+  });
+
+  @override
+  final Widget contentChild;
+
+  @override
+  Widget build(
+    BuildContext context,
+    Animation<double> bookAnimation,
+    Widget? child,
+  ) {
+    return SizedBox.expand(
+      child: Transform(
+        alignment: Alignment.center,
+        transform: Matrix4.identity()..scale(bookAnimation.value),
+        child: child,
+      ),
+    );
+  }
+}
+
+///
+class BuilderAnimatedContentDelegate extends AnimatedContentDelegate {
+  ///
+  const BuilderAnimatedContentDelegate({
+    required this.contentBuilder,
+    required this.contentChild,
+  });
+
+  ///
+  final AnimatedBookContentBuilder contentBuilder;
+
+  @override
+  final Widget? contentChild;
+
+  @override
+  Widget build(
+    BuildContext context,
+    Animation<double> bookAnimation,
+    Widget? child,
+  ) {
+    return contentBuilder(context, bookAnimation, child);
   }
 }

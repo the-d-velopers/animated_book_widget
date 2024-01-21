@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 ///
 class AnimatedBookWidget extends StatefulWidget {
   ///
-  const AnimatedBookWidget({
+  AnimatedBookWidget({
     required this.cover,
-    required this.contentBuilder,
     required this.size,
-    this.contentChild,
+    required Widget content,
     super.key,
     this.padding = EdgeInsets.zero,
     this.blurRadius = 4,
@@ -17,16 +16,31 @@ class AnimatedBookWidget extends StatefulWidget {
     this.backgroundBlurOffset = Offset.zero,
     this.backgroundColor,
     this.backgroundShadowColor,
-  });
+  }) : contentDelegate = DefaultAnimatedContentDelegate(contentChild: content);
+
+  ///
+  AnimatedBookWidget.builder({
+    required this.cover,
+    required this.size,
+    required AnimatedBookContentBuilder contentBuilder,
+    Widget? contentChild,
+    super.key,
+    this.padding = EdgeInsets.zero,
+    this.blurRadius = 4,
+    this.spreadRadius = .5,
+    this.backgroundBlurOffset = Offset.zero,
+    this.backgroundColor,
+    this.backgroundShadowColor,
+  }) : contentDelegate = BuilderAnimatedContentDelegate(
+          contentBuilder: contentBuilder,
+          contentChild: contentChild,
+        );
 
   ///
   final Widget cover;
 
   ///
-  final AnimatedBookContentBuilder contentBuilder;
-
-  ///
-  final Widget? contentChild;
+  final AnimatedContentDelegate contentDelegate;
 
   ///
   final Size size;
@@ -65,7 +79,7 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
 
   late Size size = widget.size;
   late Widget cover = widget.cover;
-  late AnimatedBookContentBuilder contentBuilder = widget.contentBuilder;
+  late AnimatedContentDelegate contentDelegate = widget.contentDelegate;
   late EdgeInsets padding = widget.padding;
   late Color backgroundColor =
       widget.backgroundColor ?? context.theme.scaffoldBackgroundColor;
@@ -109,9 +123,9 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
   void didUpdateWidget(AnimatedBookWidget oldWidget) {
     size = widget.size != size ? widget.size : size;
     cover = widget.cover != cover ? widget.cover : cover;
-    contentBuilder = widget.contentBuilder != contentBuilder
-        ? widget.contentBuilder
-        : contentBuilder;
+    contentDelegate = widget.contentDelegate != contentDelegate
+        ? widget.contentDelegate
+        : contentDelegate;
     padding = widget.padding != padding ? widget.padding : padding;
     backgroundColor = widget.backgroundColor != backgroundColor
         ? widget.backgroundColor ?? backgroundColor
@@ -151,8 +165,7 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
               ),
               AnimatedContentWidget(
                 bookAnimation: contentAnimation,
-                contentBuilder: contentBuilder,
-                contentChild: widget.contentChild,
+                delegate: contentDelegate,
               ),
               AnimatedCoverWidget(
                 listenable: coverAnimation,
