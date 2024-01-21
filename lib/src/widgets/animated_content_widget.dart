@@ -1,29 +1,36 @@
+import 'package:animated_book_list/src/src.dart';
 import 'package:flutter/material.dart';
 
 // TODO(any): add documentation here
 ///
-class AnimatedContentWidget extends AnimatedWidget {
+class AnimatedContentWidget extends StatelessWidget {
   ///
   const AnimatedContentWidget({
-    required super.listenable,
-    required this.content,
+    required this.bookAnimation,
+    required this.contentBuilder,
+    required this.contentChild,
     super.key,
   });
 
   ///
-  final Widget content;
+  final Animation<double> bookAnimation;
 
   ///
-  Animation<double> get contentAnimation => listenable as Animation<double>;
+  final AnimatedBookContentBuilder contentBuilder;
+
+  ///
+  final Widget? contentChild;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: Transform(
-        alignment: Alignment.center,
-        transform: Matrix4.identity()..scale(contentAnimation.value),
-        child: content,
+    return AnimatedBuilder(
+      animation: bookAnimation,
+      builder: (context, child) => contentBuilder(
+        context,
+        bookAnimation,
+        child,
       ),
+      child: contentChild,
     );
   }
 }

@@ -7,8 +7,9 @@ class AnimatedBookWidget extends StatefulWidget {
   ///
   const AnimatedBookWidget({
     required this.cover,
-    required this.content,
+    required this.contentBuilder,
     required this.size,
+    this.contentChild,
     super.key,
     this.padding = EdgeInsets.zero,
     this.blurRadius = 4,
@@ -22,7 +23,10 @@ class AnimatedBookWidget extends StatefulWidget {
   final Widget cover;
 
   ///
-  final Widget content;
+  final AnimatedBookContentBuilder contentBuilder;
+
+  ///
+  final Widget? contentChild;
 
   ///
   final Size size;
@@ -61,7 +65,7 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
 
   late Size size = widget.size;
   late Widget cover = widget.cover;
-  late Widget content = widget.content;
+  late AnimatedBookContentBuilder contentBuilder = widget.contentBuilder;
   late EdgeInsets padding = widget.padding;
   late Color backgroundColor =
       widget.backgroundColor ?? context.theme.scaffoldBackgroundColor;
@@ -105,7 +109,9 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
   void didUpdateWidget(AnimatedBookWidget oldWidget) {
     size = widget.size != size ? widget.size : size;
     cover = widget.cover != cover ? widget.cover : cover;
-    content = widget.content != content ? widget.content : content;
+    contentBuilder = widget.contentBuilder != contentBuilder
+        ? widget.contentBuilder
+        : contentBuilder;
     padding = widget.padding != padding ? widget.padding : padding;
     backgroundColor = widget.backgroundColor != backgroundColor
         ? widget.backgroundColor ?? backgroundColor
@@ -144,8 +150,9 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
                 offset: backgroundBlurOffset,
               ),
               AnimatedContentWidget(
-                listenable: contentAnimation,
-                content: content,
+                bookAnimation: contentAnimation,
+                contentBuilder: contentBuilder,
+                contentChild: widget.contentChild,
               ),
               AnimatedCoverWidget(
                 listenable: coverAnimation,
