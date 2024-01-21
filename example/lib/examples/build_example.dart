@@ -42,16 +42,9 @@ class BuildExample extends StatelessWidget {
               child: Image.asset('assets/icons/dvelopers_icon.jpg'),
             ),
           ),
-           contentBuilder: (context, bookAnimation, child) {
-            return SizedBox.expand(
-              child: Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.identity()..scale(bookAnimation.value),
-                child: child,
-              ),
-            );
-          },
-          contentChild: ColoredBox(
+
+          ///Content parameter
+          content: ColoredBox(
             color: color,
             child: Center(
               child: Text(
