@@ -77,9 +77,16 @@ class BooksExample extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-
-          ///Content parameter
-          content: Container(
+          contentBuilder: (context, bookAnimation, child) {
+            return SizedBox.expand(
+              child: Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()..scale(bookAnimation.value),
+                child: child,
+              ),
+            );
+          },
+          contentChild: Container(
             color: Color(0xFFF1F1F1),
             child: Padding(
               padding: const EdgeInsets.all(5),
@@ -97,10 +104,12 @@ class BooksExample extends StatelessWidget {
                     child: RichText(
                       overflow: TextOverflow.fade,
                       text: TextSpan(
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontStyle: FontStyle.italic),
-                          text: books[index].bookDescription),
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontStyle: FontStyle.italic,
+                        ),
+                        text: books[index].bookDescription,
+                      ),
                     ),
                   )
                 ],

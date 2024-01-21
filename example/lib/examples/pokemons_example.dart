@@ -87,9 +87,16 @@ class PokemonsExample extends StatelessWidget {
               ),
             ),
           ),
-
-          ///Content parameter
-          content: Container(
+          contentBuilder: (context, bookAnimation, child) {
+            return SizedBox.expand(
+              child: Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()..scale(bookAnimation.value),
+                child: child,
+              ),
+            );
+          },
+          contentChild: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
