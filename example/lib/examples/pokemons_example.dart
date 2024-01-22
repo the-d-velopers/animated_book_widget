@@ -78,9 +78,14 @@ class PokemonsExample extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: Colors.white.withOpacity(0.8),
                     radius: 70,
-                    child: Image.network(
-                      pokemonBooks[index].urlImage,
-                      color: Colors.black.withOpacity(0.7),
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.7),
+                        BlendMode.modulate,
+                      ),
+                      child: Image.network(
+                        pokemonBooks[index].urlImage,
+                      ),
                     ),
                   ),
                 ],
