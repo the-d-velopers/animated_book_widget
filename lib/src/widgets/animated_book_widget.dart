@@ -16,6 +16,10 @@ class AnimatedBookWidget extends StatefulWidget {
     this.backgroundBlurOffset = Offset.zero,
     this.backgroundColor,
     this.backgroundShadowColor,
+    this.coverAnimation,
+    this.contentAnimation,
+    this.animationDuration,
+    this.reverseAnimationDuration,
   }) : contentDelegate = DefaultAnimatedContentDelegate(contentChild: content);
 
   ///
@@ -31,6 +35,10 @@ class AnimatedBookWidget extends StatefulWidget {
     this.backgroundBlurOffset = Offset.zero,
     this.backgroundColor,
     this.backgroundShadowColor,
+    this.coverAnimation,
+    this.contentAnimation,
+    this.animationDuration,
+    this.reverseAnimationDuration,
   }) : contentDelegate = BuilderAnimatedContentDelegate(
           contentBuilder: contentBuilder,
           contentChild: contentChild,
@@ -63,18 +71,30 @@ class AnimatedBookWidget extends StatefulWidget {
   ///
   final Offset backgroundBlurOffset;
 
+  ///
+  final AnimationModifier<double>? coverAnimation;
+
+  ///
+  final AnimationModifier<double>? contentAnimation;
+
+  ///
+  final Duration? animationDuration;
+
+  ///
+  final Duration? reverseAnimationDuration;
+
   @override
   State<AnimatedBookWidget> createState() => _AnimatedBookWidgetState();
 }
 
 class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
     with SingleTickerProviderStateMixin {
-  late final AnimationController animationController = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 500),
-  )..addStatusListener(statusListener);
-  late final coverAnimation = animationController.curvedAnimation(0, 1);
-  late final contentAnimation = animationController.curvedAnimation(.5, 1);
+  static const _defaultAnimationDuration = Duration(milliseconds: 500);
+  static const _defaultReverseAnimationDuration = Duration(milliseconds: 500);
+
+  late AnimationController animationController;
+  late Animation<double> coverAnimation;
+  late Animation<double> contentAnimation;
   AnimatedBookStatus bookStatus = AnimatedBookStatus.dismissed;
 
   late Size size = widget.size;
@@ -88,6 +108,23 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
   late double blurRadius = widget.blurRadius;
   late double spreadRadius = widget.spreadRadius;
   late Offset backgroundBlurOffset = widget.backgroundBlurOffset;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: widget.animationDuration ?? _defaultAnimationDuration,
+      reverseDuration:
+          widget.reverseAnimationDuration ?? _defaultReverseAnimationDuration,
+    )..addStatusListener(statusListener);
+    coverAnimation = widget.coverAnimation != null
+        ? widget.coverAnimation!(animationController)
+        : animationController.curvedAnimation(0, .5);
+    contentAnimation = widget.contentAnimation != null
+        ? widget.contentAnimation!(animationController)
+        : animationController.curvedAnimation(.5, 1);
+  }
 
   void statusListener(AnimationStatus status) {
     switch (status) {
@@ -142,6 +179,29 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
     backgroundBlurOffset = widget.backgroundBlurOffset != backgroundBlurOffset
         ? widget.backgroundBlurOffset
         : backgroundBlurOffset;
+
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      animationController.duration =
+          widget.animationDuration ?? _defaultAnimationDuration;
+    }
+
+    if (widget.reverseAnimationDuration != oldWidget.reverseAnimationDuration) {
+      animationController.reverseDuration =
+          widget.reverseAnimationDuration ?? _defaultReverseAnimationDuration;
+    }
+
+    coverAnimation = oldWidget.coverAnimation != widget.coverAnimation
+        ? widget.coverAnimation != null
+            ? widget.coverAnimation!(animationController)
+            : animationController.curvedAnimation(0, .5)
+        : coverAnimation;
+        
+    contentAnimation = oldWidget.contentAnimation != widget.contentAnimation
+        ? widget.contentAnimation != null
+            ? widget.contentAnimation!(animationController)
+            : animationController.curvedAnimation(.5, 1)
+        : contentAnimation;
+
     super.didUpdateWidget(oldWidget);
   }
 

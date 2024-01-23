@@ -14,3 +14,8 @@ typedef AnimatedBookContentBuilder = Widget Function(
   Animation<double> bookAnimation,
   Widget? child,
 );
+
+///
+typedef AnimationModifier<T> = Animation<T> Function(
+  Animation<T> parent,
+);
