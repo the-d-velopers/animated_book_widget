@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
           scrollDirection: horizontalView ? Axis.vertical : Axis.horizontal,
           children: [
             Text(
-              'Inspiration Example:',
+              horizontalView ? 'Inspiration Example:' : 'Inspiration\nExample:',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text(
-              'Books example:',
+              horizontalView ? 'Books example:' : 'Books\nexample:',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text(
-              'Pokemons example:',
+              horizontalView ? 'Pokemons example:' : 'Pokemons\nexample:',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
@@ -88,7 +88,22 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text(
-              'Separated example:',
+              horizontalView
+                  ? 'Builder Cds example:'
+                  : 'Builder\nCds\nexample:',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                height: 225,
+                width: 225,
+                child: BuilderConstructorCdsExample(
+                    horizontalView: horizontalView),
+              ),
+            ),
+            Text(
+              horizontalView ? 'Separated example:' : 'Separated\nexample:',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
@@ -100,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text(
-              'Build example:',
+              horizontalView ? 'Build example:' : 'Build\nexample:',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
