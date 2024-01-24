@@ -1,10 +1,20 @@
 import 'package:animated_book_list/src/src.dart';
 import 'package:flutter/material.dart';
 
-// TODO(any): add documentation here
-///
+/// A widget that displays a list of animated books with optional separators.
 class AnimatedBookList extends StatefulWidget {
+  /// Creates an [AnimatedBookList] with a builder function for items.
   ///
+  /// The [itemBuilder] is a function that builds the animated book items.
+  ///
+  /// The [itemCount] is the number of items in the list.
+  ///
+  /// The [scrollDirection] determines the
+  /// scrolling axis (default is horizontal).
+  ///
+  /// The [scrollController] is the controller for the scrolling behavior.
+  ///
+  /// The [padding] is the padding around the list.
   const AnimatedBookList.builder({
     required this.itemBuilder,
     required this.itemCount,
@@ -14,7 +24,22 @@ class AnimatedBookList extends StatefulWidget {
     this.padding,
   }) : _separatorBuilder = null;
 
+  /// Creates an [AnimatedBookList] with a builder function
+  /// for items and separators.
   ///
+  /// The [itemBuilder] is a function that builds the animated book items.
+  ///
+  /// The [separatorBuilder] is a function that builds
+  /// the separators between items.
+  ///
+  /// The [itemCount] is the number of items in the list.
+  ///
+  /// The [scrollDirection] determines the scrolling axis
+  /// (default is horizontal).
+  ///
+  /// The [scrollController] is the controller for the scrolling behavior.
+  ///
+  /// The [padding] is the padding around the list.
   const AnimatedBookList.separated({
     required this.itemBuilder,
     required IndexedWidgetBuilder separatorBuilder,
@@ -25,22 +50,22 @@ class AnimatedBookList extends StatefulWidget {
     this.padding,
   }) : _separatorBuilder = separatorBuilder;
 
-  ///
+  /// The function that builds the animated book items.
   final AnimatedBookListBuilder itemBuilder;
 
-  ///
+  /// The function that builds separators between items (if not null).
   final IndexedWidgetBuilder? _separatorBuilder;
 
-  ///
+  /// The number of items in the list.
   final int itemCount;
 
-  ///
+  /// The controller for the scrolling behavior.
   final ScrollController? scrollController;
 
-  ///
+  /// The scrolling axis (default is horizontal).
   final Axis scrollDirection;
 
-  ///
+  /// The padding around the list.
   final EdgeInsets? padding;
 
   @override
