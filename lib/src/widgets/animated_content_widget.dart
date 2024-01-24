@@ -1,4 +1,4 @@
-import 'package:animated_book_list/src/src.dart';
+import 'package:animated_book_widget/src/src.dart';
 import 'package:flutter/material.dart';
 
 /// A Flutter widget that displays animated content
