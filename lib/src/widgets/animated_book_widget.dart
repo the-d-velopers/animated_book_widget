@@ -16,8 +16,7 @@ class AnimatedBookWidget extends StatefulWidget {
     this.backgroundBlurOffset = Offset.zero,
     this.backgroundColor,
     this.backgroundShadowColor,
-    this.coverAnimation,
-    this.contentAnimation,
+    this.curve,
     this.animationDuration,
     this.reverseAnimationDuration,
   }) : contentDelegate = DefaultAnimatedContentDelegate(contentChild: content);
@@ -35,8 +34,7 @@ class AnimatedBookWidget extends StatefulWidget {
     this.backgroundBlurOffset = Offset.zero,
     this.backgroundColor,
     this.backgroundShadowColor,
-    this.coverAnimation,
-    this.contentAnimation,
+    this.curve,
     this.animationDuration,
     this.reverseAnimationDuration,
   }) : contentDelegate = BuilderAnimatedContentDelegate(
@@ -72,10 +70,7 @@ class AnimatedBookWidget extends StatefulWidget {
   final Offset backgroundBlurOffset;
 
   ///
-  final AnimationModifier<double>? coverAnimation;
-
-  ///
-  final AnimationModifier<double>? contentAnimation;
+  final Curve? curve;
 
   ///
   final Duration? animationDuration;
@@ -91,6 +86,7 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
     with SingleTickerProviderStateMixin {
   static const _defaultAnimationDuration = Duration(milliseconds: 500);
   static const _defaultReverseAnimationDuration = Duration(milliseconds: 500);
+  static const _defaultCurve = Curves.linear;
 
   late AnimationController animationController = AnimationController(
     vsync: this,
@@ -98,12 +94,10 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
     reverseDuration:
         widget.reverseAnimationDuration ?? _defaultReverseAnimationDuration,
   )..addStatusListener(statusListener);
-  late Animation<double> coverAnimation = widget.coverAnimation != null
-      ? widget.coverAnimation!(animationController)
-      : animationController.curvedAnimation(0, 1);
-  late Animation<double> contentAnimation = widget.contentAnimation != null
-      ? widget.contentAnimation!(animationController)
-      : animationController.curvedAnimation(.5, 1);
+  late Animation<double> animation = CurvedAnimation(
+    parent: animationController,
+    curve: widget.curve ?? _defaultCurve,
+  );
   AnimatedBookStatus bookStatus = AnimatedBookStatus.dismissed;
   late Size size = widget.size;
   late Widget cover = widget.cover;
@@ -178,16 +172,12 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
               oldWidget.reverseAnimationDuration
           ? widget.reverseAnimationDuration ?? _defaultReverseAnimationDuration
           : animationController.reverseDuration;
-    coverAnimation = oldWidget.coverAnimation != widget.coverAnimation
-        ? widget.coverAnimation != null
-            ? widget.coverAnimation!(animationController)
-            : animationController.curvedAnimation(0, .5)
-        : coverAnimation;
-    contentAnimation = oldWidget.contentAnimation != widget.contentAnimation
-        ? widget.contentAnimation != null
-            ? widget.contentAnimation!(animationController)
-            : animationController.curvedAnimation(.5, 1)
-        : contentAnimation;
+    animation = oldWidget.curve != widget.curve
+        ? CurvedAnimation(
+            parent: animationController,
+            curve: widget.curve ?? _defaultCurve,
+          )
+        : animation;
 
     super.didUpdateWidget(oldWidget);
   }
@@ -211,11 +201,11 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
                 offset: backgroundBlurOffset,
               ),
               AnimatedContentWidget(
-                bookAnimation: contentAnimation,
+                bookAnimation: animation,
                 delegate: contentDelegate,
               ),
               AnimatedCoverWidget(
-                listenable: coverAnimation,
+                listenable: animation,
                 cover: cover,
               ),
             ],

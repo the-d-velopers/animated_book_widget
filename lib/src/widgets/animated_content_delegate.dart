@@ -34,10 +34,14 @@ class DefaultAnimatedContentDelegate extends AnimatedContentDelegate {
     Animation<double> bookAnimation,
     Widget? child,
   ) {
+    final defaultCurveAnimation = CurvedAnimation(
+      curve: const Interval(0.5, 1),
+      parent: bookAnimation,
+    );
     return SizedBox.expand(
       child: Transform(
         alignment: Alignment.center,
-        transform: Matrix4.identity()..scale(bookAnimation.value),
+        transform: Matrix4.identity()..scale(defaultCurveAnimation.value),
         child: child,
       ),
     );
