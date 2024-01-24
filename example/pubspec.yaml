@@ -10,9 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Animated Book List package, by the-d-velopers.
+  # Animated Book Widget package, by the-d-velopers.
   # TODO: Add URL here
-  animated_book_list:
+  animated_book_widget:
     path: ../ 
   
   # Adds the Cupertino Icons font to your application. Used by the

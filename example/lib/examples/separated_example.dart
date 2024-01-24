@@ -1,4 +1,4 @@
-import 'package:animated_book_list/animated_book_list.dart';
+import 'package:animated_book_widget/animated_book_widget.dart';
 import 'package:flutter/material.dart';
 
 ///Widget class example
@@ -13,9 +13,10 @@ class SeparatedExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ///List of all objects
-    return AnimatedBookList.separated(
+    return ListView.separated(
       ///Scroll axis
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
+      clipBehavior: Clip.none,
 
       ///Separator of list
       separatorBuilder: (context, index) => horizontalView
