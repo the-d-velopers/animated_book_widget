@@ -79,7 +79,10 @@ class BuilderConstructorCdsExample extends StatelessWidget {
               horizontal: horizontalView ? 10 : 0),
 
           ///The cover element for the book
-          cover: Image.network(cds[index].cdCoverImgUrl),
+          cover: Image.network(
+            cds[index].cdCoverImgUrl,
+            fit: BoxFit.cover,
+          ),
 
           ///Creates the child inside the book
           contentChild: Padding(

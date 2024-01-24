@@ -103,6 +103,21 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text(
+              horizontalView
+                  ? 'Builder Blue Rays example:'
+                  : 'Builder\nBlue\nRays\nexample:',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                height: 225,
+                width: 160,
+                child: BuilderConstructorBlueRaysExample(
+                    horizontalView: horizontalView),
+              ),
+            ),
+            Text(
               horizontalView ? 'Separated example:' : 'Separated\nexample:',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
