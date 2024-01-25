@@ -1,4 +1,4 @@
-import 'package:animated_book_widget/src/widgets/widgets.dart';
+import 'package:animated_book_widget/animated_book_widget.dart';
 import 'package:flutter/material.dart';
 
 // The constants for use in all tests and no repeat
@@ -10,7 +10,7 @@ const keyContent = Key('Animated_Content');
 const double width = 400;
 const double height = 220;
 
-final animatedBookWideget = AnimatedBookWidget(
+final animatedBookWidget = AnimatedBookWidget(
   key: keyWidget,
   cover: const ColoredBox(
     key: keyCover,
