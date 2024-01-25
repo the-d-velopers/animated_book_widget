@@ -1,4 +1,4 @@
-import 'package:animated_book_list/animated_book_list.dart';
+import 'package:animated_book_widget/animated_book_widget.dart';
 import 'package:flutter/material.dart';
 
 ///Creating a class object
@@ -37,7 +37,7 @@ class PokemonsExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ///List of all objects
-    return AnimatedBookList.separated(
+    return ListView.separated(
       ///Scroll axis
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
@@ -45,6 +45,7 @@ class PokemonsExample extends StatelessWidget {
       separatorBuilder: (context, index) => horizontalView
           ? const SizedBox(width: 20)
           : const SizedBox(height: 20),
+      clipBehavior: Clip.none,
 
       ///Number of items on the list
       itemCount: pokemonBooks.length,
@@ -78,9 +79,14 @@ class PokemonsExample extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: Colors.white.withOpacity(0.8),
                     radius: 70,
-                    child: Image.network(
-                      pokemonBooks[index].urlImage,
-                      color: Colors.black.withOpacity(0.7),
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.7),
+                        BlendMode.modulate,
+                      ),
+                      child: Image.network(
+                        pokemonBooks[index].urlImage,
+                      ),
                     ),
                   ),
                 ],
