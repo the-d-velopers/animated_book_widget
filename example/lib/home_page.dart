@@ -88,24 +88,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text(
-              horizontalView
-                  ? 'Builder Cds example:'
-                  : 'Builder\nCds\nexample:',
+              horizontalView ? 'Cds example:' : 'Cds\nexample:',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: SizedBox(
-                height: 225,
-                width: 225,
-                child: BuilderConstructorCdsExample(
-                    horizontalView: horizontalView),
+              child: SizedBox.square(
+                dimension: 225,
+                child: CdsExample(horizontalView: horizontalView),
               ),
             ),
             Text(
-              horizontalView
-                  ? 'Builder Blue Rays example:'
-                  : 'Builder\nBlue\nRays\nexample:',
+              horizontalView ? 'Blue Rays example:' : 'Blue\nRays\nexample:',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
@@ -113,8 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: SizedBox(
                 height: 225,
                 width: 160,
-                child: BuilderConstructorBlueRaysExample(
-                    horizontalView: horizontalView),
+                child: BlueRaysExample(horizontalView: horizontalView),
               ),
             ),
             Text(

@@ -1,13 +1,13 @@
 import 'dart:math' as math;
 
-import 'package:animated_book_list/animated_book_list.dart';
+import 'package:animated_book_widget/animated_book_widget.dart';
 import 'package:flutter/material.dart';
 
 ///Creating a class object
 class Cd {
-  String cdCoverImgUrl;
-  String cdDiscImgUrl;
-  List<Color> cdGradient;
+  final String cdCoverImgUrl;
+  final String cdDiscImgUrl;
+  final List<Color> cdGradient;
 
   Cd(
       {required this.cdCoverImgUrl,
@@ -48,10 +48,11 @@ List<Cd> cds = [
 ];
 
 ///Widget class example
-class BuilderConstructorCdsExample extends StatelessWidget {
+class CdsExample extends StatelessWidget {
   final bool horizontalView;
+  final Size size = Size.square(225);
 
-  BuilderConstructorCdsExample({
+  CdsExample({
     super.key,
     required this.horizontalView,
   });
@@ -59,19 +60,25 @@ class BuilderConstructorCdsExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ///List of all objects
-    return AnimatedBookList.builder(
+    return ListView.builder(
+      ///Physics
+      physics: const BouncingScrollPhysics(),
+
       ///Scroll axis
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
       ///Number of items on the list
       itemCount: cds.length,
 
+      //None clip
+      clipBehavior: Clip.none,
+
       //Item constructor
       itemBuilder: (_, index) {
         ///For each object we return a widget constructor with the data.
         return AnimatedBookWidget.builder(
           ///Size parameter
-          size: horizontalView ? Size.fromWidth(225) : Size.fromHeight(225),
+          size: size,
 
           ///Padding for each element of the list
           padding: EdgeInsets.symmetric(

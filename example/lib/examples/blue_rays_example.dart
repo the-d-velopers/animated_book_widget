@@ -1,13 +1,13 @@
 import 'dart:math' as math;
 
-import 'package:animated_book_list/animated_book_list.dart';
+import 'package:animated_book_widget/animated_book_widget.dart';
 import 'package:flutter/material.dart';
 
 ///Creating a class object
 class Bray {
-  String bRayCoverImgUrl;
-  String bRayDiscImgUrl;
-  Color bRayBackgroundColor;
+  final String bRayCoverImgUrl;
+  final String bRayDiscImgUrl;
+  final Color bRayBackgroundColor;
 
   Bray(
       {required this.bRayCoverImgUrl,
@@ -26,8 +26,7 @@ List<Bray> bRays = [
   Bray(
     bRayCoverImgUrl:
         'https://static.thcdn.com/images/small/original/productimg/0/960/960/77/10996577-1410440223-328138.jpg',
-    bRayDiscImgUrl:
-        'https://www.pngkit.com/png/full/117-1177288_home-alone-bluray-disc-image-home-alone-blu.png',
+    bRayDiscImgUrl: 'https://picfiles.alphacoders.com/975/97544.png',
     bRayBackgroundColor: Colors.blue.shade900,
   ),
   Bray(
@@ -40,10 +39,12 @@ List<Bray> bRays = [
 ];
 
 ///Widget class example
-class BuilderConstructorBlueRaysExample extends StatelessWidget {
+class BlueRaysExample extends StatelessWidget {
   final bool horizontalView;
+  final Size widthSize = Size.fromWidth(160);
+  final Size heightSize = Size.fromHeight(225);
 
-  BuilderConstructorBlueRaysExample({
+  BlueRaysExample({
     super.key,
     required this.horizontalView,
   });
@@ -51,19 +52,25 @@ class BuilderConstructorBlueRaysExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ///List of all objects
-    return AnimatedBookList.builder(
+    return ListView.builder(
+      ///Physics
+      physics: const BouncingScrollPhysics(),
+
       ///Scroll axis
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
       ///Number of items on the list
       itemCount: bRays.length,
 
+      ///None clip
+      clipBehavior: Clip.none,
+
       //Item constructor
       itemBuilder: (_, index) {
         ///For each object we return a widget constructor with the data.
         return AnimatedBookWidget.builder(
           ///Size parameter
-          size: horizontalView ? Size.fromWidth(175) : Size.fromHeight(205),
+          size: horizontalView ? widthSize : heightSize,
 
           ///Padding for each element of the list
           padding: EdgeInsets.symmetric(
@@ -76,7 +83,10 @@ class BuilderConstructorBlueRaysExample extends StatelessWidget {
               top: Radius.circular(15),
               bottom: Radius.circular(10),
             ),
-            child: Image.network(bRays[index].bRayCoverImgUrl),
+            child: Image.network(
+              bRays[index].bRayCoverImgUrl,
+              fit: BoxFit.cover,
+            ),
           ),
 
           ///Creates the child inside the book
@@ -87,7 +97,7 @@ class BuilderConstructorBlueRaysExample extends StatelessWidget {
 
           ///Customize the back content  and use the animation based on open cover animation
           contentBuilder: (context, cdAnimation, child) {
-            return Container(
+            return DecoratedBox(
               decoration: BoxDecoration(
                 color: bRays[index].bRayBackgroundColor,
                 borderRadius: BorderRadius.vertical(
