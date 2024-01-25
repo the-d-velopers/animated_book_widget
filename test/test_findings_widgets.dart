@@ -16,7 +16,7 @@ void testFindingWidgets() {
 void testAnimatedBookWidget() => testTo(
       'Finding the Animated Book Widget',
       (tester) {
-        final animatedBookWidget = find.byWidget(animatedBookWideget);
+        final animatedBookWidget = find.byKey(keyWidget);
 
         expect(animatedBookWidget, findsOneWidget);
       },

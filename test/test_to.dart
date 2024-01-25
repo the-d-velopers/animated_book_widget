@@ -15,7 +15,7 @@ void testTo(
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: animatedBookWideget,
+                child: animatedBookWidget,
               ),
             ),
           ),
