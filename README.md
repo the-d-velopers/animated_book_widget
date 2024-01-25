@@ -3,7 +3,7 @@
 # Flutter Animated Book Widget
 
 ![build](https://github.com/the-d-velopers/animated_book_list/actions/workflows/code_metrics.yml/badge.svg?branch=master)
-[![animated_book_widget](https://img.shields.io/pub/v/animated_book_list?label=animated_book_list)](https://pub.dev/packages/animated_book_list)
+[![animated_book_widget](https://img.shields.io/pub/v/animated_book_widget?label=animated_book_widget)](https://pub.dev/packages/animated_book_widget)
 
 A Flutter package allows you to effortlessly create a animated book widget UI with dynamic content rendering.
 
