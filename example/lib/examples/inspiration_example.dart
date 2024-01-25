@@ -1,4 +1,4 @@
-import 'package:animated_book_list/animated_book_list.dart';
+import 'package:animated_book_widget/animated_book_widget.dart';
 import 'package:flutter/material.dart';
 
 ///Creating a class object
@@ -41,7 +41,7 @@ class InspirationExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ///List of all objects
-    return AnimatedBookList.separated(
+    return ListView.separated(
       ///Scroll axis
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
@@ -52,6 +52,7 @@ class InspirationExample extends StatelessWidget {
 
       ///Number of items on the list
       itemCount: inspirationBooks.length,
+      clipBehavior: Clip.none,
 
       ///Item constructor
       itemBuilder: (_, index) {
