@@ -12,7 +12,7 @@ void testTo(
       'Animated Book Widget Package Test: $info',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          const MaterialApp(
+          MaterialApp(
             home: Scaffold(
               body: Center(
                 child: animatedBookWideget,
