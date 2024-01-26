@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 /// A Flutter widget that provides a blurred background
 /// effect with customizable properties.
+///
 class BackgroundBlur extends StatelessWidget {
   /// Creates a [BackgroundBlur] widget.
   ///
   /// The [backgroundColor] is the base color of the background.
   ///
-  /// The [backgroundShadowColor] is the color of the shadow
-  /// applied to the background.
+  /// The [backgroundShadowColor] is the color of the shadow applied
+  /// to the background.
   ///
   /// The [blurRadius] determines the amount of blur applied to the background.
   ///
@@ -17,12 +18,15 @@ class BackgroundBlur extends StatelessWidget {
   /// The [offset] specifies the offset of the shadow
   /// relative to the background.
   ///
+  /// The [borderRadius] is the border radius applied to the background.
+  ///
   const BackgroundBlur({
     required this.backgroundColor,
     required this.backgroundShadowColor,
     required this.blurRadius,
     required this.spreadRadius,
     required this.offset,
+    required this.borderRadius,
     super.key,
   });
 
@@ -41,12 +45,16 @@ class BackgroundBlur extends StatelessWidget {
   /// The offset of the shadow relative to the background.
   final Offset offset;
 
+  /// The border radius applied to the background.
+  final BorderRadius borderRadius;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: backgroundColor,
+          borderRadius: borderRadius,
           boxShadow: [
             BoxShadow(
               color: backgroundShadowColor,
