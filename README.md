@@ -171,7 +171,7 @@ Check out the **example** app in the [example](example) directory or the 'Exampl
   <tr>
     <td align="center"><a href="https://github.com/br-programmer"><img src="https://avatars.githubusercontent.com/u/30538983?s=100" width="100px;" alt=""/><br /><sub><b>
 Brayan Cantos</b></sub></a></td>
-    <td align="center"><a href="https://github.com/diegoveloper"><img src="https://avatars.githubusercontent.com/u/4898256?s=100" width="100px;" alt=""/><br /><sub><b>Diego Velásquez
+    <td align="center"><a href="https://github.com/diegoveloper"><img src="https://avatars.githubusercontent.com/u/4898256?s=100" width="100px;" alt=""/><br /><sub><b>diegoveloper
 </b></sub></a></td>
     <td align="center"><a href="https://github.com/ecarlosdev"><img src="https://avatars.githubusercontent.com/u/155333596?s=100" width="100px;" alt=""/><br /><sub><b>ecarlosdev</b></sub></a></td>
     <td align="center"><a href="https://github.com/jesuspedge"><img src="https://avatars.githubusercontent.com/u/74924269?s=100" width="100px;" alt=""/><br /><sub><b>Roger Bacab
