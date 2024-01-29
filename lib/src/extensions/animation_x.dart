@@ -1,17 +1,16 @@
 import 'package:flutter/animation.dart';
 
-// TODO(any): add documentation here
-///
+/// Extension methods for the [AnimationController] class.
 extension AnimationControllerX on AnimationController {
+  /// Creates a [CurvedAnimation] with a specified curve within a given range.
   ///
-  Animation<double> curvedAnimation(
-    double begin,
-    double end, {
-    Curve curve = Curves.linear,
-  }) {
+  /// The optional [curve] parameter specifies
+  ///
+  /// the curve to be applied (default is [Curves.linear]).
+  Animation<double> curvedAnimation({Curve curve = Curves.linear}) {
     return CurvedAnimation(
       parent: this,
-      curve: Interval(begin, end, curve: curve),
+      curve: curve,
     );
   }
 }

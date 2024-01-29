@@ -1,29 +1,39 @@
+import 'package:animated_book_widget/src/src.dart';
 import 'package:flutter/material.dart';
 
-// TODO(any): add documentation here
+/// A Flutter widget that displays animated content
+/// within a book using a specified delegate.
 ///
-class AnimatedContentWidget extends AnimatedWidget {
+class AnimatedContentWidget extends StatelessWidget {
+  /// Creates an [AnimatedContentWidget].
+  ///
+  /// The [bookAnimation] is the animation controlling the book state.
+  ///
+  /// The [delegate] is the delegate responsible for building
+  /// the animated content.
   ///
   const AnimatedContentWidget({
-    required super.listenable,
-    required this.content,
+    required this.bookAnimation,
+    required this.delegate,
     super.key,
   });
 
-  ///
-  final Widget content;
+  /// The animation controlling the book state.
+  final Animation<double> bookAnimation;
 
-  ///
-  Animation<double> get contentAnimation => listenable as Animation<double>;
+  /// The delegate responsible for building the animated content.
+  final AnimatedContentDelegate delegate;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: Transform(
-        alignment: Alignment.center,
-        transform: Matrix4.identity()..scale(contentAnimation.value),
-        child: content,
+    return AnimatedBuilder(
+      animation: bookAnimation,
+      builder: (context, child) => delegate.build(
+        context,
+        bookAnimation,
+        child,
       ),
+      child: delegate.contentChild,
     );
   }
 }
