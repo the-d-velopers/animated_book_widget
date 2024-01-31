@@ -21,7 +21,7 @@ dependencies:
 Import:
 
 ```dart
-import 'package:animated_book_widget/animated_book_widget.dart
+import 'package:animated_book_widget/animated_book_widget.dart';
 ```
 
 ## How to use
@@ -31,7 +31,7 @@ AnimatedBookWidget(
   cover: _Cover,
   content: _Content,
   size: const Size.fromWidth(160),
-),
+);
 ``` 
 
 ## Params
@@ -49,8 +49,8 @@ AnimatedBookWidget(
   backgroundShadowColor: color.withOpacity(.075),
   curve: Curves.linear,
   animationDuration: Duration(milliseconds: 500),
-  reverseAnimationDuration: Duration(milliseconds: 500)
-),
+  reverseAnimationDuration: Duration(milliseconds: 500),
+);
 ``` 
 
 ## Builder
