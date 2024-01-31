@@ -1,10 +1,11 @@
 import 'package:animated_book_widget/src/src.dart';
 import 'package:flutter/material.dart';
 
-/// A customizable animated book widget with cover,
-/// content, and animation control.
+/// A customizable animated book widget with
+/// cover, content, and animation control.
+///
 class AnimatedBookWidget extends StatefulWidget {
-  /// Creates an [AnimatedBookWidget] with a fixed content.
+  /// Creates an [AnimatedBookWidget] with fixed content.
   ///
   /// The [cover] is the widget representing the book cover.
   ///
@@ -31,6 +32,9 @@ class AnimatedBookWidget extends StatefulWidget {
   ///
   /// The [reverseAnimationDuration] is the duration of the closing animation.
   ///
+  /// The [backgroundBorderRadius] is the border radius
+  /// applied to the background.
+  ///
   AnimatedBookWidget({
     required this.cover,
     required this.size,
@@ -45,10 +49,11 @@ class AnimatedBookWidget extends StatefulWidget {
     this.curve = Curves.linear,
     this.animationDuration = const Duration(milliseconds: 500),
     this.reverseAnimationDuration = const Duration(milliseconds: 500),
+    this.backgroundBorderRadius = BorderRadius.zero,
   }) : contentDelegate = DefaultAnimatedContentDelegate(contentChild: content);
 
-  /// Creates an [AnimatedBookWidget] with a dynamic content using
-  /// a builder function.
+  /// Creates an [AnimatedBookWidget] with dynamic content
+  /// using a builder function.
   ///
   /// The [cover] is the widget representing the book cover.
   ///
@@ -57,8 +62,8 @@ class AnimatedBookWidget extends StatefulWidget {
   /// The [contentBuilder] is a function that builds
   /// the dynamic content inside the book.
   ///
-  /// The optional [contentChild] is used as a fallback
-  /// if [contentBuilder] is null.
+  /// The optional [contentChild] is used as a
+  /// fallback if [contentBuilder] is null.
   ///
   /// The [padding] is the padding around the book.
   ///
@@ -70,8 +75,8 @@ class AnimatedBookWidget extends StatefulWidget {
   ///
   /// The [backgroundColor] is the background color of the book.
   ///
-  /// The [backgroundShadowColor] is the color of the shadow
-  /// applied to the background.
+  /// The [backgroundShadowColor] is the color of the
+  /// shadow applied to the background.
   ///
   /// The [curve] is the animation curve used for opening/closing the book.
   ///
@@ -79,6 +84,8 @@ class AnimatedBookWidget extends StatefulWidget {
   ///
   /// The [reverseAnimationDuration] is the duration of the closing animation.
   ///
+  /// The [backgroundBorderRadius] is the border
+  /// radius applied to the background.
   AnimatedBookWidget.builder({
     required this.cover,
     required this.size,
@@ -94,6 +101,7 @@ class AnimatedBookWidget extends StatefulWidget {
     this.curve = Curves.linear,
     this.animationDuration = const Duration(milliseconds: 500),
     this.reverseAnimationDuration = const Duration(milliseconds: 500),
+    this.backgroundBorderRadius = BorderRadius.zero,
   }) : contentDelegate = BuilderAnimatedContentDelegate(
           contentBuilder: contentBuilder,
           contentChild: contentChild,
@@ -135,6 +143,9 @@ class AnimatedBookWidget extends StatefulWidget {
   /// The duration of the closing animation.
   final Duration reverseAnimationDuration;
 
+  /// The border radius applied to the background.
+  final BorderRadius backgroundBorderRadius;
+
   @override
   State<AnimatedBookWidget> createState() => _AnimatedBookWidgetState();
 }
@@ -162,6 +173,7 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
   late double blurRadius = widget.blurRadius;
   late double spreadRadius = widget.spreadRadius;
   late Offset backgroundBlurOffset = widget.backgroundBlurOffset;
+  late BorderRadius backgroundBorderRadius = widget.backgroundBorderRadius;
 
   void statusListener(AnimationStatus status) {
     switch (status) {
@@ -228,7 +240,10 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
     animation = oldWidget.curve != widget.curve
         ? animationController.curvedAnimation(curve: widget.curve)
         : animation;
-
+    backgroundBorderRadius =
+        oldWidget.backgroundBorderRadius != widget.backgroundBorderRadius
+            ? widget.backgroundBorderRadius
+            : backgroundBorderRadius;
     super.didUpdateWidget(oldWidget);
   }
 
@@ -249,6 +264,7 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
                 blurRadius: blurRadius,
                 spreadRadius: spreadRadius,
                 offset: backgroundBlurOffset,
+                borderRadius: backgroundBorderRadius,
               ),
               AnimatedContentWidget(
                 bookAnimation: animation,

@@ -1,5 +1,5 @@
 name: animated_book_widget
-description: A Flutter package from the d-velopers community
+description: An immersive book-like widget with captivating animations
 version: 0.1.0+1
 publish_to: none
 
@@ -13,3 +13,11 @@ dependencies:
 dev_dependencies:
   dart_code_metrics: ^5.7.6
   very_good_analysis: ^5.1.0
+
+screenshots:
+  - description: Animated Book Widget
+    path: screenshots/animated_book_widget.gif
+  - description: Animated Book Widget
+    path: screenshots/animated_book_widget.png  
+
+flutter:  
