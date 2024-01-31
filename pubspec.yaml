@@ -1,6 +1,6 @@
 name: animated_book_widget
-description: An immersive book-like widget with captivating animations
-version: 1.0.0
+description: A Flutter package providing an interactive method to display content, resembling the experience of flipping through pages.
+version: 1.0.1
 homepage: https://www.d-velopers.com
 repository: https://github.com/the-d-velopers/animated_book_widget/
 
