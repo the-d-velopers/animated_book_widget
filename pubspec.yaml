@@ -18,6 +18,10 @@ screenshots:
   - description: Animated Book Widget
     path: screenshots/animated_book_widget.gif
   - description: Animated Book Widget
-    path: screenshots/animated_book_widget.png  
+    path: screenshots/animated_book_widget.png 
+  - description: Animated Book Widget
+    path: screenshots/animated_book_widget1.gif
+  - description: Animated Book Widget
+    path: screenshots/animated_book_widget1.png  
 
 flutter:  
