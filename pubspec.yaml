@@ -16,4 +16,9 @@ dev_dependencies:
   dart_code_metrics: ^5.7.6
   flutter_test:
     sdk: flutter
+<<<<<<< HEAD
   very_good_analysis: ^5.1.0
+=======
+  very_good_analysis: ^5.1.0
+  
+>>>>>>> ac84bc88d6362611b5762321afa29f815fd80671
