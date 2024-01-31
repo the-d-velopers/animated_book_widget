@@ -13,3 +13,11 @@ dependencies:
 dev_dependencies:
   dart_code_metrics: ^5.7.6
   very_good_analysis: ^5.1.0
+
+screenshots:
+  - description: Animated Book Widget
+    path: screenshots/animated_book_widget.gif
+  - description: Animated Book Widget
+    path: screenshots/animated_book_widget.png  
+
+flutter:  
