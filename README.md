@@ -11,7 +11,30 @@ A Flutter package allows you to effortlessly create a animated book widget UI wi
 
 <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXhzNWc3anE0YTJ2MTB1cGgzN2ViaXhxY25tZ25kMjZrZTc5b3FjZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u1vjynNPintKSHixvx/giphy.gif" alt="The example app showing animated book widget animation" width="227"/>
 
+## Installation 
+Add `animated_book_widget` to your `pubspec.yaml` dependencies. And import it:
+
+```dart
+dependencies:
+    animated_book_widget: <latest_version>
+```
+Import:
+
+```dart
+import 'package:animated_book_widget/animated_book_widget.dart
+```
+
 ## How to use
+
+```dart   
+AnimatedBookWidget(
+  cover: _Cover,
+  content: _Content,
+  size: const Size.fromWidth(160),
+),
+``` 
+
+## Params
 
 ```dart   
 AnimatedBookWidget(
