@@ -25,4 +25,8 @@ screenshots:
   - description: Animated Book Widget
     path: screenshots/animated_book_widget1.png  
 
+false_secrets:
+ - /lib/*
+ - /**/*
+ 
 flutter:  
