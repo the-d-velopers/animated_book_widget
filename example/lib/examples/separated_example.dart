@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 ///Widget class example
 class SeparatedExample extends StatelessWidget {
   final bool horizontalView;
+  final Size widthSize = Size.fromWidth(160);
+  final Size heightSize = Size.fromHeight(225);
 
   SeparatedExample({
     super.key,
@@ -14,8 +16,13 @@ class SeparatedExample extends StatelessWidget {
   Widget build(BuildContext context) {
     ///List of all objects
     return ListView.separated(
+      ///Physics
+      physics: const BouncingScrollPhysics(),
+
       ///Scroll axis
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
+
+      ///None clip
       clipBehavior: Clip.none,
 
       ///Separator of list
@@ -33,7 +40,7 @@ class SeparatedExample extends StatelessWidget {
         ///For each object we return a widget with the data.
         return AnimatedBookWidget(
           ///Size perameter
-          size: horizontalView ? Size.fromWidth(160) : Size.fromHeight(225),
+          size: horizontalView ? widthSize : heightSize,
 
           ///Cover parameter
           cover: ClipRRect(

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 ///Creating a class object
 class PokemonBook {
-  String urlImage;
-  String pokemonName;
+  final String urlImage;
+  final String pokemonName;
 
   PokemonBook({required this.urlImage, required this.pokemonName});
 }
@@ -28,6 +28,8 @@ List<PokemonBook> pokemonBooks = [
 ///Widget class example
 class PokemonsExample extends StatelessWidget {
   final bool horizontalView;
+  final Size widthSize = Size.fromWidth(160);
+  final Size heightSize = Size.fromHeight(225);
 
   PokemonsExample({
     super.key,
@@ -38,6 +40,9 @@ class PokemonsExample extends StatelessWidget {
   Widget build(BuildContext context) {
     ///List of all objects
     return ListView.separated(
+      ///Physics
+      physics: const BouncingScrollPhysics(),
+
       ///Scroll axis
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
@@ -45,6 +50,8 @@ class PokemonsExample extends StatelessWidget {
       separatorBuilder: (context, index) => horizontalView
           ? const SizedBox(width: 20)
           : const SizedBox(height: 20),
+
+      ///None clip
       clipBehavior: Clip.none,
 
       ///Number of items on the list
@@ -55,12 +62,12 @@ class PokemonsExample extends StatelessWidget {
         ///For each object we return a widget with the data.
         return AnimatedBookWidget(
           //Size perameter
-          size: horizontalView ? Size.fromWidth(160) : Size.fromHeight(225),
+          size: horizontalView ? widthSize : heightSize,
 
           ///Cover parameter
           cover: ClipRRect(
             borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
-            child: Container(
+            child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -95,7 +102,7 @@ class PokemonsExample extends StatelessWidget {
           ),
 
           ///Content parameter
-          content: Container(
+          content: DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,

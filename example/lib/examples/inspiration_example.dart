@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 ///Creating a class object
 class InspirationBook {
-  String coverImgUrl;
-  String imageSilhouetteUrl;
+  final String coverImgUrl;
+  final String imageSilhouetteUrl;
 
   InspirationBook(
       {required this.coverImgUrl, required this.imageSilhouetteUrl});
@@ -16,22 +16,24 @@ List<InspirationBook> inspirationBooks = [
       coverImgUrl:
           'https://i.pinimg.com/originals/20/29/91/202991d2c637c19df48e376ad3ed30cf.jpg',
       imageSilhouetteUrl:
-          'https://www.pngkit.com/png/full/64-644639_male-head-silhouette-png-vector-black-and-white.png'),
+          'https://www.clipartqueen.com/image-files/male-profile-silhouette.png'),
   InspirationBook(
       coverImgUrl:
           'https://img2.wallspic.com/previews/6/3/8/4/4/144836/144836-galaxy-cloud-blue-atmosphere-nature-x350.jpg',
       imageSilhouetteUrl:
-          'https://www.pngkit.com/png/full/64-644639_male-head-silhouette-png-vector-black-and-white.png'),
+          'https://www.clipartqueen.com/image-files/male-profile-silhouette.png'),
   InspirationBook(
       coverImgUrl:
           'https://burst.shopifycdn.com/photos/elaborate-building-interior-with-light-teal-walls.jpg?width=1000&format=pjpg&exif=0&iptc=0',
       imageSilhouetteUrl:
-          'https://www.pngkit.com/png/full/64-644639_male-head-silhouette-png-vector-black-and-white.png'),
+          'https://www.clipartqueen.com/image-files/male-profile-silhouette.png'),
 ];
 
 ///Widget class example
 class InspirationExample extends StatelessWidget {
   final bool horizontalView;
+  final Size widthSize = Size.fromWidth(160);
+  final Size heightSize = Size.fromHeight(225);
 
   InspirationExample({
     super.key,
@@ -42,6 +44,9 @@ class InspirationExample extends StatelessWidget {
   Widget build(BuildContext context) {
     ///List of all objects
     return ListView.separated(
+      ///Physics
+      physics: const BouncingScrollPhysics(),
+
       ///Scroll axis
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
@@ -52,6 +57,8 @@ class InspirationExample extends StatelessWidget {
 
       ///Number of items on the list
       itemCount: inspirationBooks.length,
+
+      ///None clip
       clipBehavior: Clip.none,
 
       ///Item constructor
@@ -59,7 +66,7 @@ class InspirationExample extends StatelessWidget {
         ///For each object we return a widget with the data.
         return AnimatedBookWidget(
           ///Size perameter
-          size: horizontalView ? Size.fromWidth(160) : Size.fromHeight(225),
+          size: horizontalView ? widthSize : heightSize,
 
           ///Cover parameter
           cover: ClipRRect(

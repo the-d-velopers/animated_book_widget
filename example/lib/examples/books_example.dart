@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 ///Creating a class object
 class Book {
-  String bookCoverImgUrl;
-  String bookAuthorImgUrl;
-  String bookDescription;
+  final String bookCoverImgUrl;
+  final String bookAuthorImgUrl;
+  final String bookDescription;
 
   Book(
       {required this.bookAuthorImgUrl,
@@ -17,21 +17,21 @@ class Book {
 List<Book> books = [
   Book(
       bookAuthorImgUrl:
-          'https://www.pngkit.com/png/full/64-644639_male-head-silhouette-png-vector-black-and-white.png',
+          'https://www.clipartqueen.com/image-files/male-profile-silhouette.png',
       bookCoverImgUrl:
           'https://content.wepik.com/statics/90897927/preview-page0.jpg',
       bookDescription:
           'Lorem ipsum dolor sit amet consectetur adipiscing elit, ligula aliquam magnis lobortis euismod suscipit luctus, curae rhoncus nascetur malesuada condimentum potenti. Viverra felis aptent mi cum ante tristique ut dignissim, vivamus donec justo nibh posuere lacinia morbi at, fusce ornare massa primis ullamcorper neque tempus. Convallis dis nullam parturient viverra montes placerat bibendum metus vel penatibus inceptos diam ultrices, litora hac sed etiam aenean vivamus libero facilisis per mollis risus.'),
   Book(
       bookAuthorImgUrl:
-          'https://www.pngkit.com/png/full/64-644639_male-head-silhouette-png-vector-black-and-white.png',
+          'https://www.clipartqueen.com/image-files/male-profile-silhouette.png',
       bookCoverImgUrl:
           'https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg',
       bookDescription:
           'Lorem ipsum dolor sit amet consectetur adipiscing elit, ligula aliquam magnis lobortis euismod suscipit luctus, curae rhoncus nascetur malesuada condimentum potenti. Viverra felis aptent mi cum ante tristique ut dignissim, vivamus donec justo nibh posuere lacinia morbi at, fusce ornare massa primis ullamcorper neque tempus. Convallis dis nullam parturient viverra montes placerat bibendum metus vel penatibus inceptos diam ultrices, litora hac sed etiam aenean vivamus libero facilisis per mollis risus.'),
   Book(
       bookAuthorImgUrl:
-          'https://www.pngkit.com/png/full/64-644639_male-head-silhouette-png-vector-black-and-white.png',
+          'https://www.clipartqueen.com/image-files/male-profile-silhouette.png',
       bookCoverImgUrl:
           'https://i.pinimg.com/originals/a1/f8/87/a1f88733921c820db477d054fe96afbb.jpg',
       bookDescription:
@@ -41,6 +41,8 @@ List<Book> books = [
 ///Widget class example
 class BooksExample extends StatelessWidget {
   final bool horizontalView;
+  final Size widthSize = Size.fromWidth(160);
+  final Size heightSize = Size.fromHeight(225);
 
   BooksExample({
     super.key,
@@ -51,18 +53,23 @@ class BooksExample extends StatelessWidget {
   Widget build(BuildContext context) {
     ///List of all objects
     return ListView.builder(
+      ///Physics
+      physics: const BouncingScrollPhysics(),
+
       ///Scroll axis
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
       ///Number of items on the list
       itemCount: books.length,
+
+      ///None clip
       clipBehavior: Clip.none,
       //Item constructor
       itemBuilder: (_, index) {
         ///For each object we return a widget with the data.
         return AnimatedBookWidget(
           ///Size perameter
-          size: horizontalView ? Size.fromWidth(160) : Size.fromHeight(225),
+          size: horizontalView ? widthSize : heightSize,
 
           //Padding parameter
           padding: horizontalView

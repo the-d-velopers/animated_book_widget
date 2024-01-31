@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 ///Widget class example
 class BuildExample extends StatelessWidget {
   final bool horizontalView;
+  final Size widthSize = Size.fromWidth(160);
+  final Size heightSize = Size.fromHeight(225);
 
   BuildExample({
     super.key,
@@ -14,11 +16,16 @@ class BuildExample extends StatelessWidget {
   Widget build(BuildContext context) {
     ///List of all objects
     return ListView.builder(
+      ///Physics
+      physics: const BouncingScrollPhysics(),
+
       ///Scroll axis
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
       ///Number of items on the list
       itemCount: 3,
+
+      ///None clip
       clipBehavior: Clip.none,
 
       ///Item constructor
@@ -28,7 +35,7 @@ class BuildExample extends StatelessWidget {
         ///For each object we return a widget with the data.
         return AnimatedBookWidget(
           ///Size perameter
-          size: horizontalView ? Size.fromWidth(160) : Size.fromHeight(225),
+          size: horizontalView ? widthSize : heightSize,
 
           //Padding parameter
           padding: horizontalView
