@@ -9,156 +9,71 @@ A Flutter package allows you to effortlessly create a animated book widget UI wi
 
 ## Preview
 
-<table>
-    <tr>
-        <td align="center">
-            <figure>
-                <figcaption><b>Use it as Grid View Card</b></figcaption>
-                <hr/>
-                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXhzNWc3anE0YTJ2MTB1cGgzN2ViaXhxY25tZ25kMjZrZTc5b3FjZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u1vjynNPintKSHixvx/giphy.gif" alt="The example app showing animated book widget animation" width="227"/>
-            </figure>
-        </td>
-    </tr>
-<tr><td></td></tr>
-    <tr>
-        <td align="center">
-            <figure>
-                <figcaption><b>Use it as List Card</b></figcaption>
-                <hr/>
-                <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGRma2FwcmUxNnJocG9vYXJodW8wc2I4YXdhcjdsZjllbzA1bTJneiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/K83J9B9U2mFKU9c1wZ/giphy.gif" alt="The example app showing card floating animation in mobile" width="227"/>
-            </figure>
-        </td>
-    </tr>
-</table>
+<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXhzNWc3anE0YTJ2MTB1cGgzN2ViaXhxY25tZ25kMjZrZTc5b3FjZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u1vjynNPintKSHixvx/giphy.gif" alt="The example app showing animated book widget animation" width="227"/>
 
+## Installation 
+Add `animated_book_widget` to your `pubspec.yaml` dependencies. And import it:
 
-
-## Installing
-
-1.  Add dependency to `pubspec.yaml`
-
-    Get the latest version from the 'Installing' tab on [pub.dev](https://pub.dev/packages/animated_book_widget/install)
-    
 ```dart
 dependencies:
     animated_book_widget: <latest_version>
 ```
+Import:
 
-2.  Import the package
 ```dart
-import 'package:animated_book_widget/animated_book_widget.dart';
+import 'package:animated_book_widget/animated_book_widget.dart
 ```
 
-3.  Adding AnimatedBookWidget
+## How to use
 
-*With required parameters*
-```dart
-    AnimatedBookWidget(
-      cover: ColoredBox(
-        color: Color(0xFF2D2D2D),
-        child: Image.asset('assets/icons/dvelopers_icon.jpg'),
-      ),
-      content: ColoredBox(color: Color(0xFF0000FF)),
-      size: const Size.fromWidth(160),
-      padding: const EdgeInsets.only(right: 1), // 0(Zero) when you want to set the separation
-    ),
-```    
-
-*With optional parameters*
 ```dart   
-    AnimatedBookWidget(
-      cover: ColoredBox(
-        color: Color(0xFF2D2D2D),
-        child: Image.asset('assets/icons/dvelopers_icon.jpg'),
-      ),
-      content: ColoredBox(color: Color(0xFF0000FF)),
-      size: const Size.fromWidth(160),
-      padding: const EdgeInsets.only(right: 10), // 0(Zero) when you want to set the separation
-      blurRadius: 8,
-      spreadRadius: .1,
-      backgroundBlurOffset: Offset.zero,
-      backgroundColor: color.withOpacity(.5),
-      backgroundShadowColor: color.withOpacity(.075),
-      curve: Curves.linear,
-      animationDuration: Duration(milliseconds: 500),
-      reverseAnimationDuration: Duration(milliseconds: 500)
-    ),
+AnimatedBookWidget(
+  cover: _Cover,
+  content: _Content,
+  size: const Size.fromWidth(160),
+),
 ``` 
 
-*Separation between cards*
+## Params
 
- + Default configuration
-```dart
-    ListView.separated(
-      scrollDirection: Axis.horizontal,
-      clipBehavior: Clip.none,
-      separatorBuilder: (context, index) => const SizedBox(width: 20),
-      itemCount: 3,
-      itemBuilder: (_, index) {
-        final color = Colors.primaries[index % Colors.primaries.length];
-        return AnimatedBookWidget(
-          size: Size.fromWidth(160),
-          cover: ClipRRect(
-            borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
-            child: ColoredBox(
-              color: Color(0xFF2D2D2D),
-              child: Image.network('https://i.imgur.com/ooKoJzX.jpg'),
-            ),
-          ),
-          content: ColoredBox(
-            color: color,
-            child: Center(
-              child: Text(
-                'D-VELOPERS',
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall!
-                    .copyWith(color: Colors.white),
-              ),
-            ),
-          ),
-        );
-      },
+```dart   
+AnimatedBookWidget(
+  cover: _Cover,
+  content: _Content,
+  size: const Size.fromWidth(160),
+  padding: const EdgeInsets.only(right: 10),
+  blurRadius: 8,
+  spreadRadius: .1,
+  backgroundBlurOffset: Offset.zero,
+  backgroundColor: color.withOpacity(.5),
+  backgroundShadowColor: color.withOpacity(.075),
+  curve: Curves.linear,
+  animationDuration: Duration(milliseconds: 500),
+  reverseAnimationDuration: Duration(milliseconds: 500)
+),
+``` 
+
+## Builder
+
+```dart   
+AnimatedBookWidget.builder(
+  cover: _Cover,
+  size: Size(200, 300),
+  contentChild: _Content,
+  contentBuilder: (context, animation, child) {
+    return Transform(
+      transform: Matrix4.identity()
+        ..setEntry(3, 2, 0.001)
+        ..rotateY(animation.value),
+      alignment: Alignment.center,
+      child: child,
     );
-```    
+  },
+);
+``` 
 
- + Configuration with Builder
-```dart
-    ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: 3,
-      clipBehavior: Clip.none,
-      itemBuilder: (_, index) {
-        final color = Colors.primaries[index % Colors.primaries.length];
-        return AnimatedBookWidget(
-          size: Size.fromWidth(160),
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          cover: ClipRRect(
-            borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
-            child: ColoredBox(
-              color: Color(0xFF2D2D2D),
-              child: Image.network('https://i.imgur.com/ooKoJzX.jpg'),
-            ),
-          ),
-          content: ColoredBox(
-            color: color,
-            child: Center(
-              child: Text(
-                'D-VELOPERS',
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall!
-                    .copyWith(color: Colors.white),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-```    
+## Examples
 
-
-## How to use
 Check out the **example** app in the [example](example) directory or the 'Example' tab on pub.dartlang.org for a more complete example.
 
 ## Credit
