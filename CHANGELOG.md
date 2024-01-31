@@ -1,4 +1,4 @@
 # 1.0.1
-- Update package description.
+- Package description updated.
 # 1.0.0
-- Initial release. Thanks d-velopers
+- Initial release: Thanks d-velopers.
