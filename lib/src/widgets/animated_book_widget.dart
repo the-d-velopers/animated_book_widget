@@ -179,14 +179,11 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
     switch (status) {
       case AnimationStatus.dismissed:
         bookStatus = AnimatedBookStatus.dismissed;
-        return;
       case AnimationStatus.completed:
         bookStatus = AnimatedBookStatus.completed;
-        return;
       case AnimationStatus.forward:
       case AnimationStatus.reverse:
         bookStatus = AnimatedBookStatus.animated;
-        return;
     }
   }
 
@@ -194,10 +191,8 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
     switch (bookStatus) {
       case AnimatedBookStatus.dismissed:
         animationController.forward(from: 0);
-        return;
       case AnimatedBookStatus.completed:
         animationController.reverse(from: 1);
-        return;
       case AnimatedBookStatus.animated:
         break;
     }
