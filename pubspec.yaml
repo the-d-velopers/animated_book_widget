@@ -9,9 +9,10 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter  
+    sdk: flutter
 
 dev_dependencies:
+  dart_code_linter: ^1.1.1
   dart_code_metrics: ^5.7.6
   very_good_analysis: ^5.1.0
 
@@ -19,14 +20,14 @@ screenshots:
   - description: Animated Book Widget
     path: screenshots/animated_book_widget.gif
   - description: Animated Book Widget
-    path: screenshots/animated_book_widget.png 
+    path: screenshots/animated_book_widget.png
   - description: Animated Book Widget
     path: screenshots/animated_book_widget1.gif
   - description: Animated Book Widget
-    path: screenshots/animated_book_widget1.png  
+    path: screenshots/animated_book_widget1.png
 
 false_secrets:
  - /lib/*
  - /**/*
- 
-flutter:  
+
+flutter:
