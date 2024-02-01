@@ -16,6 +16,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -55,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Text(
               horizontalView ? 'Inspiration Example:' : 'Inspiration\nExample:',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: textTheme.headlineSmall,
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -67,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               horizontalView ? 'Books example:' : 'Books\nexample:',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: textTheme.headlineSmall,
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -79,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               horizontalView ? 'Pokemons example:' : 'Pokemons\nexample:',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: textTheme.headlineSmall,
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -91,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               horizontalView ? 'Cds example:' : 'Cds\nexample:',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: textTheme.headlineSmall,
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -102,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               horizontalView ? 'Blue Rays example:' : 'Blue\nRays\nexample:',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: textTheme.headlineSmall,
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -114,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               horizontalView ? 'Separated example:' : 'Separated\nexample:',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: textTheme.headlineSmall,
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -126,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               horizontalView ? 'Build example:' : 'Build\nexample:',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: textTheme.headlineSmall,
             ),
             Padding(
               padding: const EdgeInsets.all(10),

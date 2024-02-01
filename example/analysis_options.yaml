@@ -8,11 +8,15 @@ analyzer:
     strict-inference: true
     strict-raw-types: true
 
+linter:
+  rules:
+    - require_trailing_commas: true
+
 dart_code_linter:
   extends:
     - package:dart_code_linter/presets/recommended.yaml
     - package:dart_code_linter/presets/metrics_recommended.yaml
 
-linter:
   rules:
-    - require_trailing_commas: true
+  - no-magic-number: false
+  - avoid-non-null-assertion: false

@@ -71,6 +71,10 @@ class InspirationExample extends StatelessWidget {
       /// Item constructor.
       itemBuilder: (_, index) {
         /// For each object we return a widget with the data..
+        final Image imageSilhouetteUrl = Image.network(
+          inspirationBooks[index].imageSilhouetteUrl,
+        );
+
         return AnimatedBookWidget(
           /// Size perameter.
           size: horizontalView ? widthSize : heightSize,
@@ -100,17 +104,13 @@ class InspirationExample extends StatelessWidget {
                         height: 90,
                         width: 65,
                         color: const Color(0xFF81F79F),
-                        child: Image.network(
-                          inspirationBooks[index].imageSilhouetteUrl,
-                        ),
+                        child: imageSilhouetteUrl,
                       ),
                       Container(
                         height: 90,
                         width: 65,
                         color: const Color(0xFF01DFD7),
-                        child: Image.network(
-                          inspirationBooks[index].imageSilhouetteUrl,
-                        ),
+                        child: imageSilhouetteUrl,
                       ),
                     ],
                   ),
@@ -121,17 +121,13 @@ class InspirationExample extends StatelessWidget {
                         height: 90,
                         width: 65,
                         color: const Color(0xFFF5DA81),
-                        child: Image.network(
-                          inspirationBooks[index].imageSilhouetteUrl,
-                        ),
+                        child: imageSilhouetteUrl,
                       ),
                       Container(
                         height: 90,
                         width: 65,
                         color: const Color(0xFF819FF7),
-                        child: Image.network(
-                          inspirationBooks[index].imageSilhouetteUrl,
-                        ),
+                        child: imageSilhouetteUrl,
                       ),
                     ],
                   ),

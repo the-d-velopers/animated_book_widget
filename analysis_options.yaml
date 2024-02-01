@@ -10,8 +10,8 @@ analyzer:
 
 linter:
   rules:
-    - require_trailing_commas
-    - lines_longer_than_80_chars
+    - lines_longer_than_80_chars: true
+    - require_trailing_commas: true
 
 dart_code_linter:
   extends:

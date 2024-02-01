@@ -65,6 +65,13 @@ class PokemonsExample extends StatelessWidget {
 
       /// Item constructor.
       itemBuilder: (_, index) {
+        final imagePokemonBooks =
+            Image.network(pokemonBooks[index].urlImage);
+
+        final headlineSmallStyle = Theme.of(context).textTheme.headlineSmall;
+
+        final bgColorWhitewithOpacity = Colors.white.withOpacity(0.8);
+
         /// For each object we return a widget with the data..
         return AnimatedBookWidget(
           //Size perameter
@@ -87,22 +94,20 @@ class PokemonsExample extends StatelessWidget {
                 children: [
                   Text(
                     'PoKéMoN?',
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: headlineSmallStyle!.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   CircleAvatar(
-                    backgroundColor: Colors.white.withOpacity(0.8),
+                    backgroundColor: bgColorWhitewithOpacity,
                     radius: 70,
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(
                         Colors.black.withOpacity(0.7),
                         BlendMode.modulate,
                       ),
-                      child: Image.network(
-                        pokemonBooks[index].urlImage,
-                      ),
+                      child: imagePokemonBooks,
                     ),
                   ),
                 ],
@@ -124,17 +129,15 @@ class PokemonsExample extends StatelessWidget {
               children: [
                 Text(
                   pokemonBooks[index].pokemonName,
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: headlineSmallStyle.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 CircleAvatar(
-                  backgroundColor: Colors.white.withOpacity(0.8),
+                  backgroundColor: bgColorWhitewithOpacity,
                   radius: 70,
-                  child: Image.network(
-                    pokemonBooks[index].urlImage,
-                  ),
+                  child: imagePokemonBooks,
                 ),
               ],
             ),
