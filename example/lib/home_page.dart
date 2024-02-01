@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'examples.dart';
+import 'examples/examples.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: Image.asset(
                   'assets/icons/dvelopers_icon.jpg',
                   width: 45,
@@ -33,20 +33,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Text('Animated Book List'),
+            const Text('Animated Book List'),
           ],
         ),
         actions: [
           IconButton(
             onPressed: () => setState(() => horizontalView = !horizontalView),
-            icon: Icon(horizontalView
-                ? Icons.view_column_rounded
-                : Icons.table_rows_rounded),
+            icon: Icon(
+              horizontalView
+                  ? Icons.view_column_rounded
+                  : Icons.table_rows_rounded,
+            ),
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10),
         child: ListView(
           physics: const BouncingScrollPhysics(),
           scrollDirection: horizontalView ? Axis.vertical : Axis.horizontal,

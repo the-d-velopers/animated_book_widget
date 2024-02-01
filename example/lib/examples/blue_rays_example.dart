@@ -3,19 +3,20 @@ import 'dart:math' as math;
 import 'package:animated_book_widget/animated_book_widget.dart';
 import 'package:flutter/material.dart';
 
-///Creating a class object
+/// Creating a class object.
 class Bray {
+  Bray({
+    required this.bRayCoverImgUrl,
+    required this.bRayDiscImgUrl,
+    required this.bRayBackgroundColor,
+  });
+
+  final Color bRayBackgroundColor;
   final String bRayCoverImgUrl;
   final String bRayDiscImgUrl;
-  final Color bRayBackgroundColor;
-
-  Bray(
-      {required this.bRayCoverImgUrl,
-      required this.bRayDiscImgUrl,
-      required this.bRayBackgroundColor});
 }
 
-///Simulates a background query with response a List of objects
+/// Simulates a background query with response a List of objects.
 List<Bray> bRays = [
   Bray(
     bRayCoverImgUrl:
@@ -35,51 +36,54 @@ List<Bray> bRays = [
     bRayDiscImgUrl:
         'https://vistapointe.net/images/beverly-hills-cop-iii-wallpaper-20.jpg',
     bRayBackgroundColor: Colors.lightBlue,
-  )
+  ),
 ];
 
-///Widget class example
+/// Widget class example.
 class BlueRaysExample extends StatelessWidget {
-  final bool horizontalView;
-  final Size widthSize = Size.fromWidth(160);
-  final Size heightSize = Size.fromHeight(225);
-
-  BlueRaysExample({
-    super.key,
+  const BlueRaysExample({
     required this.horizontalView,
+    super.key,
   });
+
+  final bool horizontalView;
+
+  Size get heightSize => const Size.fromHeight(225);
+
+  Size get widthSize => const Size.fromWidth(160);
 
   @override
   Widget build(BuildContext context) {
-    ///List of all objects
+    /// List of all objects.
     return ListView.builder(
-      ///Physics
+      /// Physics.
       physics: const BouncingScrollPhysics(),
 
-      ///Scroll axis
+      /// Scroll axis.
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
-      ///Number of items on the list
+      /// Number of items on the list.
       itemCount: bRays.length,
 
-      ///None clip
+      /// None clip.
       clipBehavior: Clip.none,
 
       //Item constructor
       itemBuilder: (_, index) {
-        ///For each object we return a widget constructor with the data.
+        /// For each object we return a widget constructor with the data..
         return AnimatedBookWidget.builder(
-          ///Size parameter
+          /// Size parameter.
           size: horizontalView ? widthSize : heightSize,
 
-          ///Padding for each element of the list
+          /// Padding for each element of the list.
           padding: EdgeInsets.symmetric(
-              vertical: horizontalView ? 0 : 10,
-              horizontal: horizontalView ? 10 : 0),
+            vertical: horizontalView ? 0 : 10,
+            horizontal: horizontalView ? 10 : 0,
+          ),
 
-          ///The cover element for the book
+          /// The cover element for the book.
           cover: ClipRRect(
-            borderRadius: BorderRadius.vertical(
+            borderRadius: const BorderRadius.vertical(
               top: Radius.circular(15),
               bottom: Radius.circular(10),
             ),
@@ -89,24 +93,25 @@ class BlueRaysExample extends StatelessWidget {
             ),
           ),
 
-          ///Creates the child inside the book
+          /// Creates the child inside the book.
           contentChild: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(5),
             child: Image.network(bRays[index].bRayDiscImgUrl),
           ),
 
-          ///Customize the back content  and use the animation based on open cover animation
+          /// Customize the back content and use the animation based on open
+          /// cover animation.
           contentBuilder: (context, cdAnimation, child) {
             return DecoratedBox(
               decoration: BoxDecoration(
                 color: bRays[index].bRayBackgroundColor,
-                borderRadius: BorderRadius.vertical(
+                borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(15),
                   bottom: Radius.circular(10),
                 ),
               ),
 
-              ///Animate the child
+              /// Animate the child.
               child: Transform(
                 alignment: Alignment.center,
                 transform: Matrix4.identity()
