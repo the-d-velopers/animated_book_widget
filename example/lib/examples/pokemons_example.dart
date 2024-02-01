@@ -65,8 +65,7 @@ class PokemonsExample extends StatelessWidget {
 
       /// Item constructor.
       itemBuilder: (_, index) {
-        final imagePokemonBooks =
-            Image.network(pokemonBooks[index].urlImage);
+        final imagePokemonBooks = Image.network(pokemonBooks[index].urlImage);
 
         final headlineSmallStyle = Theme.of(context).textTheme.headlineSmall;
 
