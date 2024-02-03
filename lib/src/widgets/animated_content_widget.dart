@@ -12,9 +12,12 @@ class AnimatedContentWidget extends StatelessWidget {
   /// The [delegate] is the delegate responsible for building
   /// the animated content.
   ///
+  /// The [borderRadius] is the border radius of the book.
+  ///
   const AnimatedContentWidget({
     required this.bookAnimation,
     required this.delegate,
+    required this.borderRadius,
     super.key,
   });
 
@@ -24,16 +27,22 @@ class AnimatedContentWidget extends StatelessWidget {
   /// The delegate responsible for building the animated content.
   final AnimatedContentDelegate delegate;
 
+  /// The border radius of the book.
+  final BorderRadius borderRadius;
+
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: bookAnimation,
-      builder: (context, child) => delegate.build(
-        context,
-        bookAnimation,
-        child,
+    return ClipRRect(
+      borderRadius: borderRadius,
+      child: AnimatedBuilder(
+        animation: bookAnimation,
+        builder: (context, child) => delegate.build(
+          context,
+          bookAnimation,
+          child,
+        ),
+        child: delegate.contentChild,
       ),
-      child: delegate.contentChild,
     );
   }
 }
