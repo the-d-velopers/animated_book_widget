@@ -17,7 +17,7 @@ class AnimatedContentWidget extends StatelessWidget {
   const AnimatedContentWidget({
     required this.bookAnimation,
     required this.delegate,
-    required this.borderRadius,
+    this.borderRadius = BorderRadius.zero,
     super.key,
   });
 
