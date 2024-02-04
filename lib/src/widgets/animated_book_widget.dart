@@ -269,6 +269,7 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
               AnimatedContentWidget(
                 bookAnimation: animation,
                 delegate: contentDelegate,
+                borderRadius: backgroundBorderRadius,
               ),
               AnimatedCoverWidget(
                 listenable: animation,
