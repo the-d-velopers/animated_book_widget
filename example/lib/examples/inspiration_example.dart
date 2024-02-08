@@ -79,7 +79,11 @@ class InspirationExample extends StatelessWidget {
           /// Size perameter.
           size: horizontalView ? widthSize : heightSize,
 
-          /// Cover parameter.
+          ///Background and Content Border Radius parameter
+          backgroundBorderRadius:
+              BorderRadius.horizontal(right: Radius.circular(10)),
+
+          ///Cover parameter
           cover: ClipRRect(
             borderRadius:
                 const BorderRadius.horizontal(right: Radius.circular(10)),
