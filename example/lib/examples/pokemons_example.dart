@@ -1,72 +1,85 @@
 import 'package:animated_book_widget/animated_book_widget.dart';
 import 'package:flutter/material.dart';
 
-///Creating a class object
+/// Creating a class object.
 class PokemonBook {
-  final String urlImage;
-  final String pokemonName;
+  PokemonBook({
+    required this.urlImage,
+    required this.pokemonName,
+  });
 
-  PokemonBook({required this.urlImage, required this.pokemonName});
+  final String pokemonName;
+  final String urlImage;
 }
 
-///Simulates a background query with response a List of objects
+/// Simulates a background query with response a List of objects.
 List<PokemonBook> pokemonBooks = [
   PokemonBook(
-      urlImage:
-          'https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png',
-      pokemonName: 'Squirtle'),
+    urlImage: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png',
+    pokemonName: 'Squirtle',
+  ),
   PokemonBook(
-      urlImage:
-          'https://assets.stickpng.com/images/580b57fcd9996e24bc43c31a.png',
-      pokemonName: 'Bulbasaur'),
+    urlImage: 'https://assets.stickpng.com/images/580b57fcd9996e24bc43c31a.png',
+    pokemonName: 'Bulbasaur',
+  ),
   PokemonBook(
-      urlImage:
-          'https://i.pinimg.com/originals/f2/95/76/f295769d9bd3c34ffc552e837f5304ae.png',
-      pokemonName: 'Charmander'),
+    urlImage:
+        'https://i.pinimg.com/originals/f2/95/76/f295769d9bd3c34ffc552e837f5304ae.png',
+    pokemonName: 'Charmander',
+  ),
 ];
 
-///Widget class example
+/// Widget class example.
 class PokemonsExample extends StatelessWidget {
-  final bool horizontalView;
-  final Size widthSize = Size.fromWidth(160);
-  final Size heightSize = Size.fromHeight(225);
-
-  PokemonsExample({
-    super.key,
+  const PokemonsExample({
     required this.horizontalView,
+    super.key,
   });
+
+  final bool horizontalView;
+
+  Size get heightSize => const Size.fromHeight(225);
+
+  Size get widthSize => const Size.fromWidth(160);
 
   @override
   Widget build(BuildContext context) {
-    ///List of all objects
+    /// List of all objects.
     return ListView.separated(
-      ///Physics
+      /// Physics.
       physics: const BouncingScrollPhysics(),
 
-      ///Scroll axis
+      /// Scroll axis.
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
-      ///Separator of list
+      /// Separator of list.
       separatorBuilder: (context, index) => horizontalView
           ? const SizedBox(width: 20)
           : const SizedBox(height: 20),
 
-      ///None clip
+      /// None clip.
       clipBehavior: Clip.none,
 
-      ///Number of items on the list
+      /// Number of items on the list.
       itemCount: pokemonBooks.length,
 
-      ///Item constructor
+      /// Item constructor.
       itemBuilder: (_, index) {
-        ///For each object we return a widget with the data.
+        final imagePokemonBooks = Image.network(pokemonBooks[index].urlImage);
+
+        final headlineSmallStyle = Theme.of(context).textTheme.headlineSmall;
+
+        final bgColorWhitewithOpacity = Colors.white.withOpacity(0.8);
+
+        /// For each object we return a widget with the data..
         return AnimatedBookWidget(
           //Size perameter
           size: horizontalView ? widthSize : heightSize,
 
-          ///Cover parameter
+          /// Cover parameter.
           cover: ClipRRect(
-            borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
+            borderRadius:
+                const BorderRadius.horizontal(right: Radius.circular(10)),
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -80,20 +93,20 @@ class PokemonsExample extends StatelessWidget {
                 children: [
                   Text(
                     'PoKéMoN?',
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                    style: headlineSmallStyle!.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   CircleAvatar(
-                    backgroundColor: Colors.white.withOpacity(0.8),
+                    backgroundColor: bgColorWhitewithOpacity,
                     radius: 70,
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(
                         Colors.black.withOpacity(0.7),
                         BlendMode.modulate,
                       ),
-                      child: Image.network(
-                        pokemonBooks[index].urlImage,
-                      ),
+                      child: imagePokemonBooks,
                     ),
                   ),
                 ],
@@ -101,7 +114,7 @@ class PokemonsExample extends StatelessWidget {
             ),
           ),
 
-          ///Content parameter
+          /// Content parameter.
           content: DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -115,15 +128,15 @@ class PokemonsExample extends StatelessWidget {
               children: [
                 Text(
                   pokemonBooks[index].pokemonName,
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                  style: headlineSmallStyle.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 CircleAvatar(
-                  backgroundColor: Colors.white.withOpacity(0.8),
+                  backgroundColor: bgColorWhitewithOpacity,
                   radius: 70,
-                  child: Image.network(
-                    pokemonBooks[index].urlImage,
-                  ),
+                  child: imagePokemonBooks,
                 ),
               ],
             ),

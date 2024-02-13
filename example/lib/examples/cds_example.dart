@@ -3,19 +3,20 @@ import 'dart:math' as math;
 import 'package:animated_book_widget/animated_book_widget.dart';
 import 'package:flutter/material.dart';
 
-///Creating a class object
+/// Creating a class object.
 class Cd {
+  Cd({
+    required this.cdCoverImgUrl,
+    required this.cdDiscImgUrl,
+    required this.cdGradient,
+  });
+
   final String cdCoverImgUrl;
   final String cdDiscImgUrl;
   final List<Color> cdGradient;
-
-  Cd(
-      {required this.cdCoverImgUrl,
-      required this.cdDiscImgUrl,
-      required this.cdGradient});
 }
 
-///Simulates a background query with response a List of objects
+/// Simulates a background query with response a List of objects.
 List<Cd> cds = [
   Cd(
     cdCoverImgUrl:
@@ -35,7 +36,7 @@ List<Cd> cds = [
       Colors.yellow,
       Colors.green,
       Colors.blue,
-      Colors.purple
+      Colors.purple,
     ],
   ),
   Cd(
@@ -44,70 +45,73 @@ List<Cd> cds = [
     cdDiscImgUrl:
         'https://d2bzx2vuetkzse.cloudfront.net/unshoppable_producs/3f3ec57e-80d2-4f73-a2a5-6bbeeeaf72f7.png',
     cdGradient: [Colors.black, Colors.grey, Colors.blue, Colors.black],
-  )
+  ),
 ];
 
-///Widget class example
+/// Widget class example.
 class CdsExample extends StatelessWidget {
-  final bool horizontalView;
-  final Size size = Size.square(225);
-
-  CdsExample({
-    super.key,
+  const CdsExample({
     required this.horizontalView,
+    super.key,
   });
+
+  final bool horizontalView;
+  Size get size => const Size.square(225);
 
   @override
   Widget build(BuildContext context) {
-    ///List of all objects
+    /// List of all objects.
     return ListView.builder(
-      ///Physics
+      /// Physics.
       physics: const BouncingScrollPhysics(),
 
-      ///Scroll axis
+      /// Scroll axis.
       scrollDirection: horizontalView ? Axis.horizontal : Axis.vertical,
 
-      ///Number of items on the list
+      /// Number of items on the list.
       itemCount: cds.length,
 
-      //None clip
+      /// None clip.
       clipBehavior: Clip.none,
 
-      //Item constructor
+      /// Item constructor.
       itemBuilder: (_, index) {
-        ///For each object we return a widget constructor with the data.
+        /// For each object we return a widget constructor with the data.
         return AnimatedBookWidget.builder(
-          ///Size parameter
+          /// Size parameter.
           size: size,
 
-          ///Padding for each element of the list
+          /// Padding for each element of the list.
           padding: EdgeInsets.symmetric(
-              vertical: horizontalView ? 0 : 10,
-              horizontal: horizontalView ? 10 : 0),
+            vertical: horizontalView ? 0 : 10,
+            horizontal: horizontalView ? 10 : 0,
+          ),
 
-          ///The cover element for the book
+          /// The cover element for the book.
           cover: Image.network(
             cds[index].cdCoverImgUrl,
             fit: BoxFit.cover,
           ),
 
-          ///Creates the child inside the book
+          /// Creates the child inside the book.
           contentChild: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15),
             child: Image.network(cds[index].cdDiscImgUrl),
           ),
 
-          ///Customize the back content  and use the animation based on open cover animation
+          /// Customize the back content and use the animation based
+          /// on open cover animation.
           contentBuilder: (context, cdAnimation, child) {
             return Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: cds[index].cdGradient),
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: cds[index].cdGradient,
+                ),
               ),
 
-              ///Animate the child
+              /// Animate the child.
               child: Transform(
                 alignment: Alignment.center,
                 transform: Matrix4.identity()

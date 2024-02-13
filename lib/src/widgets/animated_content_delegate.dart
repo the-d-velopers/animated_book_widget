@@ -45,6 +45,7 @@ class DefaultAnimatedContentDelegate extends AnimatedContentDelegate {
       curve: const Interval(0.5, 1),
       parent: bookAnimation,
     );
+
     return SizedBox.expand(
       child: Transform(
         alignment: Alignment.center,

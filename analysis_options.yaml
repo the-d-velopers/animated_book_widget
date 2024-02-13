@@ -1,1 +1,23 @@
 include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  plugins:
+    - dart_code_linter
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    - lines_longer_than_80_chars: true
+    - require_trailing_commas: true
+
+dart_code_linter:
+  extends:
+    - package:dart_code_linter/presets/recommended.yaml
+    - package:dart_code_linter/presets/metrics_recommended.yaml
+
+  rules:
+  - no-magic-number: false
+  - avoid-non-null-assertion: false

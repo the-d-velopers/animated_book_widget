@@ -107,17 +107,14 @@ class AnimatedBookWidget extends StatefulWidget {
           contentChild: contentChild,
         );
 
-  /// The widget representing the book cover.
-  final Widget cover;
+  /// The duration of the opening animation.
+  final Duration animationDuration;
 
-  /// The delegate responsible for building the animated content.
-  final AnimatedContentDelegate contentDelegate;
+  /// The offset of the background blur effect.
+  final Offset backgroundBlurOffset;
 
-  /// The size of the book.
-  final Size size;
-
-  /// Padding applied to the book.
-  final EdgeInsets padding;
+  /// The border radius applied to the background.
+  final BorderRadius backgroundBorderRadius;
 
   /// The background color of the book.
   final Color? backgroundColor;
@@ -128,23 +125,26 @@ class AnimatedBookWidget extends StatefulWidget {
   /// The blur radius applied to the background.
   final double blurRadius;
 
-  /// How far the shadow is spread.
-  final double spreadRadius;
+  /// The delegate responsible for building the animated content.
+  final AnimatedContentDelegate contentDelegate;
 
-  /// The offset of the background blur effect.
-  final Offset backgroundBlurOffset;
+  /// The widget representing the book cover.
+  final Widget cover;
 
   /// The animation curve used for opening/closing the book.
   final Curve curve;
 
-  /// The duration of the opening animation.
-  final Duration animationDuration;
+  /// Padding applied to the book.
+  final EdgeInsets padding;
 
   /// The duration of the closing animation.
   final Duration reverseAnimationDuration;
 
-  /// The border radius applied to the background.
-  final BorderRadius backgroundBorderRadius;
+  /// The size of the book.
+  final Size size;
+
+  /// How far the shadow is spread.
+  final double spreadRadius;
 
   @override
   State<AnimatedBookWidget> createState() => _AnimatedBookWidgetState();
@@ -152,58 +152,65 @@ class AnimatedBookWidget extends StatefulWidget {
 
 class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
     with SingleTickerProviderStateMixin {
+  late Animation<double> animation = animationController.curvedAnimation(
+    curve: widget.curve,
+  );
+
   late AnimationController animationController = AnimationController(
     vsync: this,
     duration: widget.animationDuration,
     reverseDuration: widget.reverseAnimationDuration,
   )..addStatusListener(statusListener);
-  late Animation<double> animation = animationController.curvedAnimation(
-    curve: widget.curve,
-  );
 
-  AnimatedBookStatus bookStatus = AnimatedBookStatus.dismissed;
-  late Size size = widget.size;
-  late Widget cover = widget.cover;
-  late AnimatedContentDelegate contentDelegate = widget.contentDelegate;
-  late EdgeInsets padding = widget.padding;
-  late Color backgroundColor =
-      widget.backgroundColor ?? context.theme.scaffoldBackgroundColor;
-  late Color backgroundShadowColor = widget.backgroundShadowColor ??
-      context.defaultTextStyle.color!.withOpacity(0.075);
-  late double blurRadius = widget.blurRadius;
-  late double spreadRadius = widget.spreadRadius;
   late Offset backgroundBlurOffset = widget.backgroundBlurOffset;
   late BorderRadius backgroundBorderRadius = widget.backgroundBorderRadius;
+  late Color backgroundColor =
+      widget.backgroundColor ?? context.theme.scaffoldBackgroundColor;
 
-  void statusListener(AnimationStatus status) {
-    switch (status) {
-      case AnimationStatus.dismissed:
-        bookStatus = AnimatedBookStatus.dismissed;
-      case AnimationStatus.completed:
-        bookStatus = AnimatedBookStatus.completed;
-      case AnimationStatus.forward:
-      case AnimationStatus.reverse:
-        bookStatus = AnimatedBookStatus.animated;
-    }
-  }
+  late Color backgroundShadowColor = widget.backgroundShadowColor ??
+      context.defaultTextStyle.color!.withOpacity(0.075);
 
-  void onPressed() {
-    switch (bookStatus) {
-      case AnimatedBookStatus.dismissed:
-        animationController.forward(from: 0);
-      case AnimatedBookStatus.completed:
-        animationController.reverse(from: 1);
-      case AnimatedBookStatus.animated:
-        break;
-    }
-  }
+  late double blurRadius = widget.blurRadius;
+  AnimatedBookStatus bookStatus = AnimatedBookStatus.dismissed;
+  late AnimatedContentDelegate contentDelegate = widget.contentDelegate;
+  late Widget cover = widget.cover;
+  late EdgeInsets padding = widget.padding;
+  late Size size = widget.size;
+  late double spreadRadius = widget.spreadRadius;
 
   @override
-  void dispose() {
-    animationController
-      ..removeStatusListener(statusListener)
-      ..dispose();
-    super.dispose();
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: SizedBox.fromSize(
+        size: size,
+        child: GestureDetector(
+          onTap: onPressed,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              BackgroundBlur(
+                backgroundColor: backgroundColor,
+                backgroundShadowColor: backgroundShadowColor,
+                blurRadius: blurRadius,
+                spreadRadius: spreadRadius,
+                offset: backgroundBlurOffset,
+                borderRadius: backgroundBorderRadius,
+              ),
+              AnimatedContentWidget(
+                bookAnimation: animation,
+                delegate: contentDelegate,
+                borderRadius: backgroundBorderRadius,
+              ),
+              AnimatedCoverWidget(
+                listenable: animation,
+                cover: cover,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -248,37 +255,33 @@ class _AnimatedBookWidgetState extends State<AnimatedBookWidget>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: padding,
-      child: SizedBox.fromSize(
-        size: size,
-        child: GestureDetector(
-          onTap: onPressed,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              BackgroundBlur(
-                backgroundColor: backgroundColor,
-                backgroundShadowColor: backgroundShadowColor,
-                blurRadius: blurRadius,
-                spreadRadius: spreadRadius,
-                offset: backgroundBlurOffset,
-                borderRadius: backgroundBorderRadius,
-              ),
-              AnimatedContentWidget(
-                bookAnimation: animation,
-                delegate: contentDelegate,
-                borderRadius: backgroundBorderRadius,
-              ),
-              AnimatedCoverWidget(
-                listenable: animation,
-                cover: cover,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  void dispose() {
+    animationController
+      ..removeStatusListener(statusListener)
+      ..dispose();
+    super.dispose();
+  }
+
+  void statusListener(AnimationStatus status) {
+    switch (status) {
+      case AnimationStatus.dismissed:
+        bookStatus = AnimatedBookStatus.dismissed;
+      case AnimationStatus.completed:
+        bookStatus = AnimatedBookStatus.completed;
+      case AnimationStatus.forward:
+      case AnimationStatus.reverse:
+        bookStatus = AnimatedBookStatus.animated;
+    }
+  }
+
+  void onPressed() {
+    switch (bookStatus) {
+      case AnimatedBookStatus.dismissed:
+        animationController.forward(from: 0);
+      case AnimatedBookStatus.completed:
+        animationController.reverse(from: 1);
+      case AnimatedBookStatus.animated:
+        break;
+    }
   }
 }
